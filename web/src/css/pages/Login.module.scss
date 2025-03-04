@@ -1,0 +1,12 @@
+@import "../_mixins.scss";
+
+.container {
+  @include flex-center;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: #a0a0a0;
+  }
+}
