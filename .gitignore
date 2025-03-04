@@ -35,3 +35,17 @@ out/
 
 ### VS Code ###
 .vscode/
+
+
+### WEB ###
+## 등록해야 하는 파일 ##
+!web/src
+!web/package.json
+!web/package-lock.json
+!web/index.html
+!web/eslint.config.js
+!web/vite.config.js
+## 등록하지 않아도 되는 파일
+web/node_modules
+web/.env
+web/.gitignore
