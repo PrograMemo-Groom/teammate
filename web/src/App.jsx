@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import "./App.css";
 import {Route, Routes, BrowserRouter as Router} from "react-router-dom";
 import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
 
 function App() {
     const [data, setData] = useState("");
@@ -26,6 +27,7 @@ function App() {
                 <Route>
                     <Route path="/" element={<Main />}/>
                     <Route path="/login" element={<Login/>}/>
+                    <Route path="/register" element={<Register/>}/>
                 </Route>
             </Routes>
         </Router>
