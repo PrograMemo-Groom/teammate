@@ -1,0 +1,30 @@
+#port
+server:
+  port: ${BACKEND_PORT}
+
+
+#DB Connection
+spring:
+  datasource:
+    url: jdbc:mariadb://localhost:3306/teammate
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: root
+    password: 12341234
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDBDialect
+        show_sql: true
+        format_sql: true
+
+  thymeleaf:
+    cache: false
+
+logging.level:
+  org:
+    hibernate:
+      SQL: debug
+      type: debug
