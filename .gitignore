@@ -43,3 +43,4 @@ web/node_modules
 
 ## Backend ###
 src/main/resources/application.yaml
+*.env
