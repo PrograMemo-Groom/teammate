@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import Users from "./components/Users.jsx";
 import TeamCalendar from "./components/TeamCalendar.jsx";
+import TeamTodo from "./components/TeamTodo.jsx";
 
 const Home = () => {
     const [data, setData] = useState("");
@@ -18,6 +19,9 @@ const Home = () => {
             <Users />
             <TeamCalendar />
             메인 페이지 입니다. (팀 코드 생성 및 참가 페이지)
+            <TeamTodo />
+            
+            <h2> 연결 테스트</h2>
             <div>
                 <img src="./vite.svg" alt="logo"/>
                 <div>받아온 값 : {data}</div>
