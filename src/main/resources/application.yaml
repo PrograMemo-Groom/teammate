@@ -6,7 +6,7 @@ server:
 #DB Connection
 spring:
   datasource:
-    url: jdbc:mariadb://localhost:3306/test
+    url: jdbc:mariadb://localhost:3306/teammate
     driver-class-name: org.mariadb.jdbc.Driver
     username: root
     password: 12341234
