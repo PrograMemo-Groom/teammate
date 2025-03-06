@@ -1,0 +1,1 @@
+package teammate.teammate.repository;import org.springframework.data.jpa.repository.JpaRepository;import teammate.teammate.domain.UserProfile;public interface UserProfileRepository extends JpaRepository<UserProfile, Long> {}
