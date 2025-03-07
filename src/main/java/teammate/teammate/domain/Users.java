@@ -16,8 +16,17 @@ public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto Increment 설정
-    private long user_id;
-    private String user_login_id;
+    private Long id;
+
+    private String user_id;
+    private String nickname;
+    private String introduction;
+
+    @Column(name = "preferred_position")
+    private String preferredPosition;
+
+    @Column(name = "status_message")
+    private String statusMessage;
     private String email;
     private String password;
 }

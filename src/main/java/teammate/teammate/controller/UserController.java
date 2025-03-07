@@ -25,8 +25,8 @@ public class UserController {
 
     @GetMapping("/getuser")
     public String getUser() {
-        Users users = userService.getUserByUsername(BigInteger.valueOf(1));
+        Users users = userService.getUserByUsername(1);
 
-        return users.getUser_login_id();
+        return users.getUser_id();
     }
 }

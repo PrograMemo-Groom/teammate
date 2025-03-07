@@ -14,7 +14,7 @@ import java.math.BigInteger;
 public class UserService {
     private final UserRepository userRepository;
 
-    public Users getUserByUsername(BigInteger user_id) {
+    public Users getUserByUsername(int user_id) {
         Users user = userRepository.getUserByUsername(user_id);
 
         return user;
