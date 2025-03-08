@@ -44,4 +44,8 @@ public class Users {
 
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserSkills> userSkillsList;
+
+    @Lob
+    @Column(name = "profile_img")
+    private byte[] profileImg;
 }
