@@ -27,6 +27,6 @@ public class UserController {
     public String getUser() {
         Users users = userService.getUserByUsername(1);
 
-        return users.getUser_id();
+        return users.getUserId();
     }
 }
