@@ -14,7 +14,7 @@ import java.util.List;
 public class UserRepository {
     private final EntityManager em;
 
-    public Users getUserByUsername(BigInteger user_id){
+    public Users getUserByUsername(int user_id){
         String query = "select u from Users u";
 
         List<Users> resultList = em.createQuery(query, Users.class).getResultList();
