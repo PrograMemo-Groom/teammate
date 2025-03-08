@@ -1,10 +1,19 @@
 package teammate.teammate.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.context.annotation.EnableMBeanExport;
 
 import java.time.LocalDateTime;
 
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "calendar_events")
 public class CalendarEvents {
 
@@ -21,7 +30,6 @@ public class CalendarEvents {
     @Column
     private String description;
 
-    @Enumerated(EnumType.STRING)
     @Column
     private Enum<Category> category;
 

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.math.BigInteger;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -18,10 +19,12 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto Increment 설정
     private Long id;
 
-    @Column(length = 30, nullable = false)
-    private String user_id;
+    @Column(name = "user_id", length = 30, nullable = false)
+    private String userId;
+
     @Column(length = 30, nullable = false)
     private String nickname;
+
     private String introduction;
 
     @Column(name = "preferred_position")
@@ -29,8 +32,16 @@ public class Users {
 
     @Column(name = "status_message")
     private String statusMessage;
+
     @Column(length = 50, nullable = false)
     private String email;
+
     @Column(length = 50, nullable = false)
     private String password;
+
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Todos> todosList;
+
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserSkills> userSkillsList;
 }

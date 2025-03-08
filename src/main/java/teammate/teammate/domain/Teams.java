@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -17,19 +18,20 @@ import java.util.Date;
 public class Teams {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto Increment 설정
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false, name = "user_id")
-    private String userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
+    private Users user;
 
-    @Column(unique = true, nullable = false, name = "team_code")
+    @Column(name = "team_code", unique = true, nullable = false)
     private String teamCode;
 
     @Column(nullable = false)
     private Enum<Role> role;
 
-    @Column(nullable = true, name = "team_description")
+    @Column(name = "team_description", nullable = true)
     private String description;
 
     @Column(nullable = false)
@@ -40,4 +42,7 @@ public class Teams {
 
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT true")
     private Boolean is_active;
+
+    @OneToMany(mappedBy = "teams", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Todos> todosList;
 }
