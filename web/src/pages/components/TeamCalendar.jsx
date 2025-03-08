@@ -3,9 +3,16 @@ import React, { useState } from "react";
 import { LocalizationProvider, StaticDatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
+import Schedule from "./Schedule.jsx";
 
 const TeamCalendar = () => {
     const [date, setDate] = useState(dayjs());
+    const [isOpen, setIsOpen] = React.useState(false);
+
+    const handleModalOpen = (value) => {
+        setIsOpen(value);
+        console.log("modal open clicked", isOpen);
+    }
 
     const eventDates = ["2025-03-12", "2025-03-18", "2025-03-26"];
 
@@ -13,7 +20,9 @@ const TeamCalendar = () => {
         <section>
             <div className={styles.calendarContainer}>
                 <p>{dayjs().format('YYYY년 M월')}</p>
-                <button>+일정등록</button>
+                <button onClick={() => handleModalOpen(true)}>+일정등록</button>
+                {isOpen && (<Schedule onClose={() => setIsOpen(false)}/>)}
+
             </div>
 
             <LocalizationProvider dateAdapter={AdapterDayjs}>
