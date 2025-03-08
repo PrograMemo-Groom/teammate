@@ -19,7 +19,7 @@ public class Teams {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
@@ -29,15 +29,15 @@ public class Teams {
     private String teamCode;
 
     @Column(nullable = false)
-    private Enum<Role> role;
+    private String role;
 
     @Column(name = "team_description", nullable = true)
     private String description;
 
-    @Column(nullable = false)
+    @Column(name = "created_at",nullable = false)
     private Date createTime;
 
-    @Column(nullable = false)
+    @Column(name = "updated_at",nullable = false)
     private Date updateTime;
 
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT true")
