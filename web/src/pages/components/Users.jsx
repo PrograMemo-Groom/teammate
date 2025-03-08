@@ -1,12 +1,18 @@
 import React from 'react';
 import styles from "../../css/pages/Home.module.scss"
+import {useNavigate} from "react-router-dom";
 
 const Users = () => {
+    const navigate = useNavigate();
+
+    const handleOnclick = () => {
+        navigate("/profile/");
+    }
     return (
         <section className={styles.userContainer}>
             {dummyData.map((item, i) => (
                 <article className={styles.userProfile} key={`user-${i}`}>
-                    <img src={item.img} alt="profile"/>
+                    <img src={item.img} alt="profile" onClick={handleOnclick}/>
                     <p>{item.userName}</p>
                 </article>
             ))}
