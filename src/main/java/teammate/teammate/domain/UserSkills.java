@@ -16,13 +16,13 @@ public class UserSkills {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;  // @Id는 필드 최상단으로 이동
+    private int id;  // @Id는 필드 최상단으로 이동
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "user_id")
     private Users users;  // 외래 키 관계 설정
 
-    @Column(nullable = false)
+    @Column(name = "skill", nullable = false)
     private String skill;  // 기술 스택 컬럼
 
 }

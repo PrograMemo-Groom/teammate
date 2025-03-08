@@ -17,7 +17,7 @@ public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto Increment 설정
-    private Long id;
+    private int id;
 
     @Column(name = "user_id", length = 30, nullable = false)
     private String userId;
@@ -38,6 +38,10 @@ public class Users {
 
     @Column(length = 50, nullable = false)
     private String password;
+
+    @Lob // BLOB 타입을 사용하기 위해 @Lob 어노테이션 추가
+    @Column(name = "profile_img", columnDefinition = "BLOB")
+    private byte[] profileImg; // BLOB 데이터로 이미지를 저장
 
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Todos> todosList;
