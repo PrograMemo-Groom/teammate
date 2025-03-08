@@ -104,3 +104,52 @@
     }
   }
 }
+
+.calendarContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  p {
+    font-size: 21px;
+    font-weight: bold;
+  }
+  button {
+    width: 120px;
+    height: 60px;
+
+    &:hover {
+      background-color: #c6e3ff;
+    }
+  }
+}
+
+.customCalendar {
+  width: 400px;
+  max-width: 100%;
+
+  .calendarTile {
+    padding: 15px !important;
+    font-size: 16px;
+  }
+  .calendarTileNow {
+    background: lightblue !important;
+    border-radius: 10px;
+  }
+  .calendarTileActive {
+    background: orange !important;
+    color: white;
+    border-radius: 10px;
+  }
+  .dot {
+    color: red;
+    font-size: 12px;
+    display: block;
+    margin-top: 5px;
+  }
+}
+.saturday {
+  color: blue !important;
+  font-weight: bold;
+}
