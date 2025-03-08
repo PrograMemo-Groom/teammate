@@ -1,5 +1,4 @@
-USE
-teammate;
+use teammate;
 
 -- 유저 테이블
 CREATE TABLE users
@@ -13,6 +12,7 @@ CREATE TABLE users
     email              VARCHAR(80)  NOT NULL UNIQUE COMMENT '이메일',
     password           VARCHAR(255) NOT NULL COMMENT '비밀번호'
 ) DEFAULT CHARSET = utf8mb4;
+
 
 -- 팀 테이블
 CREATE TABLE teams
@@ -41,6 +41,7 @@ CREATE TABLE calendar_events
     FOREIGN KEY (team_code) REFERENCES teams (team_code)
 ) DEFAULT CHARSET = utf8mb4;
 
+
 -- 할 일 테이블
 CREATE TABLE todos
 (
@@ -55,6 +56,7 @@ CREATE TABLE todos
     FOREIGN KEY (team_code) REFERENCES teams (team_code)
 ) DEFAULT CHARSET = utf8mb4;
 
+
 -- 유저가 여러 개의 기술 스택을 가질 수 있도록 하는 테이블
 CREATE TABLE user_skills
 (
@@ -64,6 +66,7 @@ CREATE TABLE user_skills
     UNIQUE (user_id, skill), -- 중복 방지를 위해 UNIQUE 제약 조건 추가
     FOREIGN KEY (user_id) REFERENCES users (user_id)
 ) DEFAULT CHARSET = utf8mb4;
+
 
 -- 유저가 여러 개의 URL 링크를 가질 수 있도록 하는 테이블
 CREATE TABLE user_links
