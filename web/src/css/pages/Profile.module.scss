@@ -1,0 +1,152 @@
+.container {
+  width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.profileSection {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.profileImageWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profileImage {
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  background-color: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: #ccc;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.uploadButton {
+  background: #f0f0f0;
+  padding: 5px 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-bottom: 5px;
+  position: relative;
+
+  input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+}
+
+.imageSelect {
+  background: #ddd;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.inputSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.input, .textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.textarea {
+  height: 50px;
+  resize: none;
+}
+
+.position, .techStack {
+  text-align: left;
+}
+
+.positionTag {
+  background: #f8f8f8;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.stackTags {
+  display: flex;
+  gap: 5px;
+  margin-top: 5px;
+
+  span {
+    background: #f5f5f5;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+}
+
+.buttonContainer {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.saveButton, .cancelButton {
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.saveButton {
+  background-color: #000;
+  color: white;
+}
+
+.cancelButton {
+  background-color: #ddd;
+}
