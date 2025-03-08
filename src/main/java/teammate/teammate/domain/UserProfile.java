@@ -26,9 +26,9 @@ public class UserProfile {
 	private String profileImg;
 
 	@OneToMany(mappedBy="userProfile", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<UserSkill> skills;
+	private List<UserSkills> skills;
 
 	@OneToMany(mappedBy = "userProfile", cascade= CascadeType.ALL, orphanRemoval = true)
-	private List<UserLink> links;
+	private List<UserLinks> links;
 
 }
