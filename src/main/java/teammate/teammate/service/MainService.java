@@ -23,4 +23,8 @@ public class MainService {
     public List<CalendarEvents> getCalendar(String teamCode, int year, int month) {
         return mainRepository.getCalendar(teamCode, year, month);
     }
+
+    public List<CalendarEvents> getEvent(String teamCode, int year, int month, int day) {
+        return mainRepository.getEvent(teamCode, year, month, day);
+    }
 }

@@ -9,11 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import teammate.teammate.domain.CalendarEvents;
 import teammate.teammate.domain.Users;
-import teammate.teammate.repository.MainRepository;
-import teammate.teammate.repository.UserRepository;
 import teammate.teammate.service.MainService;
 
-import java.util.Calendar;
 import java.util.List;
 
 @RestController
@@ -39,5 +36,13 @@ public class MainController {
         List<CalendarEvents> calendarEvents = mainService.getCalendar(teamCode, year, month);
 
         return ResponseEntity.ok(calendarEvents);
+    }
+
+    @GetMapping("/calendar/{teamCode}/{year}/{month}/{day}")
+    public ResponseEntity<List<CalendarEvents>> getEvent(@PathVariable String teamCode,
+                                                   @PathVariable int year, @PathVariable int month, @PathVariable int day) {
+        List<CalendarEvents> event = mainService.getEvent(teamCode, year, month, day);
+
+        return ResponseEntity.ok(event);
     }
 }

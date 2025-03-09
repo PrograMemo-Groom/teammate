@@ -39,4 +39,22 @@ public class MainRepository {
 
         return resultList;
     }
+
+    public List<CalendarEvents> getEvent(String teamCode, int year, int month, int day) {
+        String sql = "SELECT c FROM CalendarEvents c WHERE c.teamCode = :teamCode " +
+                "AND YEAR(c.startDateAt) = :year " +
+                "AND MONTH(c.startDateAt) = :month " +
+                "AND DAY(c.startDateAt) = :day " +
+                "ORDER BY c.startDateAt";
+
+        List<CalendarEvents> resultList = em.createQuery(sql, CalendarEvents.class)
+                .setParameter("teamCode", teamCode)
+                .setParameter("year", year)
+                .setParameter("month", month)
+                .setParameter("day", day)
+                .getResultList();
+
+        return resultList;
+    }
+
 }
