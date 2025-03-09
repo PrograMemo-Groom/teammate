@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import teammate.teammate.domain.CalendarEvents;
 import teammate.teammate.domain.Users;
 
 import java.util.List;
@@ -19,6 +20,21 @@ public class MainRepository {
 
         List<Users> resultList = em.createQuery(sql, Users.class)
                 .setParameter("teamCode", teamCode)
+                .getResultList();
+
+        return resultList;
+    }
+
+    public List<CalendarEvents> getCalendar(String teamCode, int year, int month) {
+        String sql = "SELECT c FROM CalendarEvents c WHERE c.teamCode = :teamCode " +
+                "AND YEAR(c.startDateAt) = :year " +
+                "AND MONTH(c.startDateAt) = :month " +
+                "ORDER BY c.startDateAt";
+
+        List<CalendarEvents> resultList = em.createQuery(sql, CalendarEvents.class)
+                .setParameter("teamCode", teamCode)
+                .setParameter("year", year)
+                .setParameter("month", month)
                 .getResultList();
 
         return resultList;

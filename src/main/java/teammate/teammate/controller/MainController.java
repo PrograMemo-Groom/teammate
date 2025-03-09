@@ -7,11 +7,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import teammate.teammate.domain.CalendarEvents;
 import teammate.teammate.domain.Users;
 import teammate.teammate.repository.MainRepository;
 import teammate.teammate.repository.UserRepository;
 import teammate.teammate.service.MainService;
 
+import java.util.Calendar;
 import java.util.List;
 
 @RestController
@@ -31,5 +33,11 @@ public class MainController {
         return ResponseEntity.ok(users);
     }
 
-//    @GetMapping("/calendar/{teamCode}")
+    @GetMapping("/calendar/{teamCode}/{year}/{month}")
+    public ResponseEntity<List<CalendarEvents>> getTeamCalendar(@PathVariable String teamCode,
+                                                                @PathVariable int year, @PathVariable int month) {
+        List<CalendarEvents> calendarEvents = mainService.getCalendar(teamCode, year, month);
+
+        return ResponseEntity.ok(calendarEvents);
+    }
 }

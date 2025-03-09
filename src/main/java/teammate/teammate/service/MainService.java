@@ -3,9 +3,11 @@ package teammate.teammate.service;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import teammate.teammate.domain.CalendarEvents;
 import teammate.teammate.domain.Users;
 import teammate.teammate.repository.MainRepository;
 
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -14,8 +16,11 @@ public class MainService {
     private final MainRepository mainRepository;
 
     public List<Users> getTeamUsersByTeamCode(String teamCode){
-        List<Users> users = mainRepository.getTeamUsersByTeamCode(teamCode);
 
-        return users;
+        return mainRepository.getTeamUsersByTeamCode(teamCode);
+    }
+
+    public List<CalendarEvents> getCalendar(String teamCode, int year, int month) {
+        return mainRepository.getCalendar(teamCode, year, month);
     }
 }
