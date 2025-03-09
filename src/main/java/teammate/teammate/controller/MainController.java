@@ -2,16 +2,19 @@ package teammate.teammate.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import teammate.teammate.domain.CalendarEvents;
+import teammate.teammate.domain.Todos;
 import teammate.teammate.domain.Users;
 import teammate.teammate.service.MainService;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/main")
@@ -45,4 +48,14 @@ public class MainController {
 
         return ResponseEntity.ok(event);
     }
+
+    @GetMapping("/todos/{teamCode}/{year}/{month}/{day}")
+    public ResponseEntity<Map<String, List<Todos>>> getTodos(@PathVariable String teamCode,
+                                                             @PathVariable int year,
+                                                             @PathVariable int month,
+                                                             @PathVariable int day) {
+        Map<String, List<Todos>> groupedTodos = mainService.getTodos(teamCode, year, month, day);
+        return ResponseEntity.ok(groupedTodos);
+    }
+
 }
