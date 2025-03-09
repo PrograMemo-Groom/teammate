@@ -21,9 +21,8 @@ public class Teams {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
-    private Users users;
+    @Column(name = "user_id", length = 30, nullable = false)
+    private String userId;
 
     @Column(name = "team_code", unique = true, nullable = false)
     private String teamCode;
@@ -43,6 +42,6 @@ public class Teams {
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT true")
     private Boolean is_active;
 
-    @OneToMany(mappedBy = "teams", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Todos> todosList;
+//    @OneToMany(mappedBy = "teams", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Todos> todosList;
 }

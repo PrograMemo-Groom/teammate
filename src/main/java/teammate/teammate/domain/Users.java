@@ -49,8 +49,8 @@ public class Users {
 //    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private List<UserSkills> userSkillsList;
 
-    // 팀과의 관계 설정
-    @JsonIgnore
-    @OneToMany(mappedBy = "users")
-    private List<Teams> teams; // 여러 팀에 속할 수 있는 경우
+//    // 팀과의 관계 설정
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "users")
+//    private List<Teams> teams; // 여러 팀에 속할 수 있는 경우
 }
