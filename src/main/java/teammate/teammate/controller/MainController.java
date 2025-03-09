@@ -22,7 +22,7 @@ public class MainController {
 
     private final MainService mainService;
 
-    @GetMapping("/getTeamUsers/{teamCode}")
+    @GetMapping("/users/{teamCode}")
     public ResponseEntity<List<Users>> getTeamUsers(@PathVariable String teamCode) {
         List<Users> users = mainService.getTeamUsersByTeamCode(teamCode);
 
@@ -30,4 +30,6 @@ public class MainController {
 
         return ResponseEntity.ok(users);
     }
+
+//    @GetMapping("/calendar/{teamCode}")
 }
