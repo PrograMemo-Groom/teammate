@@ -23,7 +23,7 @@ public class Teams {
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
-    private Users user;
+    private Users users;
 
     @Column(name = "team_code", unique = true, nullable = false)
     private String teamCode;

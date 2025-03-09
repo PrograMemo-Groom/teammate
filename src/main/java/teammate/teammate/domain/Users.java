@@ -1,11 +1,11 @@
 package teammate.teammate.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.math.BigInteger;
 import java.util.List;
 
 @Getter
@@ -43,9 +43,14 @@ public class Users {
     @Column(name = "profile_img", columnDefinition = "BLOB")
     private byte[] profileImg; // BLOB 데이터로 이미지를 저장
 
-    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Todos> todosList;
+//    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Todos> todosList;
+//
+//    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<UserSkills> userSkillsList;
 
-    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UserSkills> userSkillsList;
+    // 팀과의 관계 설정
+    @JsonIgnore
+    @OneToMany(mappedBy = "users")
+    private List<Teams> teams; // 여러 팀에 속할 수 있는 경우
 }
