@@ -34,5 +34,5 @@ public class CalendarEvents {
     private String category;
 
     @Column(name = "start_date_at")
-    private LocalDateTime startTime;
+    private LocalDateTime startDateAt;
 }
