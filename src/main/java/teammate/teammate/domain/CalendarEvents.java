@@ -19,7 +19,7 @@ public class CalendarEvents {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @Column(name = "team_code", nullable = false)
     private String teamCode;
@@ -31,8 +31,8 @@ public class CalendarEvents {
     private String description;
 
     @Column
-    private Enum<Category> category;
+    private String category;
 
     @Column(name = "start_date_at")
-    private LocalDateTime startTime;
+    private LocalDateTime startDateAt;
 }

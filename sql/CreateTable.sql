@@ -1,6 +1,6 @@
-use teammate;
+USE
+teammate;
 
--- 유저 테이블
 CREATE TABLE users
 (
     id                 INT PRIMARY KEY AUTO_INCREMENT COMMENT 'id',
@@ -10,9 +10,9 @@ CREATE TABLE users
     preferred_position VARCHAR(30)  DEFAULT NULL COMMENT '선호하는 포지션',
     status_message     VARCHAR(100) DEFAULT NULL COMMENT '상태 메시지',
     email              VARCHAR(80)  NOT NULL UNIQUE COMMENT '이메일',
-    password           VARCHAR(255) NOT NULL COMMENT '비밀번호'
+    password           VARCHAR(255) NOT NULL COMMENT '비밀번호',
+    profile_img        BLOB COMMENT '프로필 이미지'
 ) DEFAULT CHARSET = utf8mb4;
-
 
 -- 팀 테이블
 CREATE TABLE teams
@@ -21,7 +21,7 @@ CREATE TABLE teams
     user_id          VARCHAR(30) NOT NULL COMMENT 'user_id',
     team_code        VARCHAR(50) NOT NULL UNIQUE COMMENT '팀 코드',
     team_name        VARCHAR(50) DEFAULT NULL COMMENT '팀 이름',
-    role             ENUM('OWNER', 'MEMBER') DEFAULT 'MEMBER' COMMENT '권한',
+    role             VARCHAR(30) DEFAULT 'MEMBER' COMMENT '권한',
     team_description TEXT        DEFAULT NULL COMMENT '팀 설명',
     created_at       TIMESTAMP   DEFAULT CURRENT_TIMESTAMP COMMENT '생성일',
     updated_at       TIMESTAMP   DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일',
@@ -36,11 +36,10 @@ CREATE TABLE calendar_events
     team_code     VARCHAR(50)  NOT NULL COMMENT '팀 코드',
     title         VARCHAR(100) NOT NULL COMMENT '일정 제목',
     description   TEXT         NOT NULL COMMENT '일정 내용',
-    category      ENUM('MEETING', 'SCHEDULE') NOT NULL COMMENT '카테고리 (회의/일정)',
+    category      VARCHAR(30)  NOT NULL COMMENT '카테고리 (회의/일정)',
     start_date_at DATETIME     NOT NULL COMMENT '회의 날짜 및 시간',
     FOREIGN KEY (team_code) REFERENCES teams (team_code)
 ) DEFAULT CHARSET = utf8mb4;
-
 
 -- 할 일 테이블
 CREATE TABLE todos
@@ -56,7 +55,6 @@ CREATE TABLE todos
     FOREIGN KEY (team_code) REFERENCES teams (team_code)
 ) DEFAULT CHARSET = utf8mb4;
 
-
 -- 유저가 여러 개의 기술 스택을 가질 수 있도록 하는 테이블
 CREATE TABLE user_skills
 (
@@ -67,12 +65,11 @@ CREATE TABLE user_skills
     FOREIGN KEY (user_id) REFERENCES users (user_id)
 ) DEFAULT CHARSET = utf8mb4;
 
-
 -- 유저가 여러 개의 URL 링크를 가질 수 있도록 하는 테이블
 CREATE TABLE user_links
 (
     id      INT PRIMARY KEY AUTO_INCREMENT  COMMENT 'id',
-    user_id    VARCHAR(30)  NOT NULL COMMENT '유저 ID',
+    user_id VARCHAR(30)  NOT NULL COMMENT '유저 ID',
     url     VARCHAR(200) NOT NULL COMMENT 'URL 링크',
     FOREIGN KEY (user_id) REFERENCES users (user_id)
 ) DEFAULT CHARSET = utf8mb4;

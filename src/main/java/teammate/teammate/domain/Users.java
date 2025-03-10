@@ -1,12 +1,12 @@
 package teammate.teammate.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigInteger;
 import java.util.List;
 
 @Setter
@@ -19,7 +19,7 @@ public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto Increment 설정
-    private Long id;
+    private int id;
 
     @Column(name = "user_id", length = 30, nullable = false)
     private String userId;
@@ -47,7 +47,7 @@ public class Users {
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserSkills> userSkillsList;
 
-    @Lob
-    @Column(name = "profile_img")
-    private byte[] profileImg;
+    @Lob // BLOB 타입을 사용하기 위해 @Lob 어노테이션 추가
+    @Column(name = "profile_img", columnDefinition = "BLOB")
+    private byte[] profileImg; // BLOB 데이터로 이미지를 저장
 }
