@@ -1,19 +1,27 @@
 import React from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import { toggleTodo } from "../../store/reducer/TodoReducer.js";
 import styles from "../../css/pages/Home.module.scss";
 
 const TeamTodo = () => {
-    const handleOnchangeChecked = (e) => {
-        console.log(e.target.checked);
-    }
+    const dispatch = useDispatch();
+    const todos = useSelector((state) => state.todo.todos);
 
     return (
         <section className={styles.todoContainer}>
-            {dummyData.map((item, index) => (
-                <article key={`todo-${index}`}>
-                    <h3>{item.userName}</h3>
+            {todos.map((user, userIndex) => (
+                <article key={`todo-${userIndex}`}>
+                    <h3>{user.userName}</h3>
                     <ul>
-                        {item.todos.map((item, index) => (
-                            <li key={`${item.maker}+${index}`}><input type="checkbox" checked={item.checked} onChange={() => handleOnchangeChecked()}/>{item.title}</li>
+                        {user.todos.map((todo, todoIndex) => (
+                            <li key={`${todo.maker}-${todoIndex}`}>
+                                <input
+                                    type="checkbox"
+                                    checked={todo.checked}
+                                    onChange={() => dispatch(toggleTodo({ userIndex, todoIndex }))}
+                                />
+                                {todo.title}
+                            </li>
                         ))}
                     </ul>
                 </article>
@@ -21,27 +29,5 @@ const TeamTodo = () => {
         </section>
     );
 };
-
-const dummyData = [
-    {
-        userName: "김재홍", todos: [{
-            title: "UI만들기", checked: false, maker: "김재홍"
-        }, {
-            title: "UI만들기", checked: false, maker: "김재홍"
-        }, {
-            title: "UI만들기", checked: false, maker: "김재홍"
-        }]
-    },
-    {
-        userName: "정경희", todos: [{
-            title: "UI만들기1", checked: false, maker: "정경희"
-        }, {
-            title: "UI만들기2", checked: false, maker: "정경희"
-        }, {
-            title: "UI만들기3", checked: false, maker: "정경희"
-        }]
-    },
-
-]
 
 export default TeamTodo;
