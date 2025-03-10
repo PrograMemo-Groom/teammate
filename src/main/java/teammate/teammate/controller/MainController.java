@@ -98,6 +98,11 @@ public class MainController {
         return ResponseEntity.ok(updatedTodo);
     }
 
+    /**
+     *
+     * @param addTodo
+     * @return RequestBody로 받은 team_code, user_id에 대해 Todo 추가
+     */
     @PostMapping("/todos")
     public ResponseEntity<Todos> addTodo(@RequestBody Todos addTodo) {
         Todos addedTodo = mainService.addTodo(addTodo);
