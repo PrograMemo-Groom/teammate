@@ -21,7 +21,7 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto Increment 설정
     private int id;
 
-    @Column(name = "user_id", length = 30, nullable = false)
+    @Column(name = "user_id", length = 30, nullable = false, unique = true)
     private String userId;
 
     @Column(length = 30, nullable = false)

@@ -31,6 +31,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	implementation 'org.mariadb.jdbc:mariadb-java-client:3.2.0'
 
 
 	// env 파일 관리를 위한 dotenv 라이브러리 추가
