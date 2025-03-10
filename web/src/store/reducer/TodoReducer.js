@@ -36,9 +36,13 @@ const todoSlice = createSlice({
         addTodo: (state, action) => {
             const { userIndex, newTodo } = action.payload;
             state.todos[userIndex].todos.push(newTodo);
+        },
+        editTodo: (state, action) => {
+            const { userIndex, todoIndex, newTitle } = action.payload;
+            state.todos[userIndex].todos[todoIndex].title = newTitle;
         }
     }
 });
 
-export const { toggleTodo , deleteTodo, addTodo} = todoSlice.actions;
+export const { toggleTodo , deleteTodo, addTodo, editTodo} = todoSlice.actions;
 export default todoSlice.reducer;
