@@ -1,1 +1,1 @@
-//package teammate.teammate.repository;////import org.springframework.data.jpa.repository.JpaRepository;//import org.springframework.stereotype.Repository;////@Repository//public interface UserProfileRepository extends JpaRepository<UserProfile, Long> {//}
+package teammate.teammate.repository;import org.springframework.data.jpa.repository.JpaRepository;import org.springframework.stereotype.Repository;import teammate.teammate.domain.UserProfile;@Repositorypublic interface UserProfileRepository extends JpaRepository<UserProfile, String> {}
