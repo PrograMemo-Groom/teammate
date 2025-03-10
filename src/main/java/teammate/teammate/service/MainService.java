@@ -50,4 +50,8 @@ public class MainService {
     public CalendarEvents getCalendarById(int id) {
         return mainRepository.getCalendarById(id);
     }
+
+    public CalendarEvents updateCalendar(int id, CalendarEvents updateCalendar) {
+        return mainRepository.updateCalendar(id, updateCalendar);
+    }
 }

@@ -68,11 +68,30 @@ public class MainController {
         return ResponseEntity.ok(event);
     }
 
+    /**
+     *
+     * @param id
+     * @return id로 일정 상세 정보 1개를 조회
+     */
     @GetMapping("/calendar/{id}")
     public ResponseEntity<CalendarEvents> getCalendarById(@PathVariable int id) {
         CalendarEvents calendar = mainService.getCalendarById(id);
 
         return ResponseEntity.ok(calendar);
+    }
+
+
+    /**
+     *
+     * @param id
+     * @param updateCalendar
+     * @return id에 해당하는 회의 일정 데이터를 업데이트
+     */
+    @PostMapping("/calendar/{id}")
+    public ResponseEntity<CalendarEvents> updateCalendar(@PathVariable int id, @RequestBody CalendarEvents updateCalendar) {
+        CalendarEvents updatedCalendar = mainService.updateCalendar(id, updateCalendar);
+
+        return ResponseEntity.ok(updatedCalendar);
     }
 
 

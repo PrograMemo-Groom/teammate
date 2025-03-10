@@ -63,10 +63,7 @@ public class MainRepository {
         Todos existingTodo = em.createQuery(sql, Todos.class).setParameter("todoId", todoId).getSingleResult();
 
         // Todo 업데이트 로직
-        // 변경된 할 일이 있으면
-        if (updateTodo.getTask() != null) {
-            existingTodo.setTask(updateTodo.getTask());
-        }
+        existingTodo.setTask(updateTodo.getTask());
         existingTodo.setCompleted(updateTodo.getCompleted());
 
         return existingTodo;
@@ -116,5 +113,22 @@ public class MainRepository {
 
         return calendarEvents;
 
+    }
+
+    @Transactional
+    public CalendarEvents updateCalendar(int id, CalendarEvents updateCalendar) {
+        String sql = "SELECT c FROM CalendarEvents c WHERE c.id = :id";
+
+        CalendarEvents existingCalendar = em.createQuery(sql, CalendarEvents.class)
+                .setParameter("id", id)
+                .getSingleResult();
+
+        // 업데이트 로직
+        existingCalendar.setTitle(updateCalendar.getTitle());
+        existingCalendar.setCategory(updateCalendar.getCategory());
+        existingCalendar.setDescription(updateCalendar.getDescription());
+        existingCalendar.setStartDateAt(updateCalendar.getStartDateAt());
+
+        return existingCalendar;
     }
 }
