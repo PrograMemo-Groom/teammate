@@ -153,3 +153,11 @@
   color: blue !important;
   font-weight: bold;
 }
+
+
+.ScheduleViewContainer {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #555555;
+  border-radius: 8px;
+}
