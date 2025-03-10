@@ -20,9 +20,8 @@ public class Todos {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "user_id")
-    private Users users;
+    @Column(name = "user_id", length = 30, nullable = false)
+    private String userId;
 
     @Column(name = "team_code", nullable = false)
     private String teamCode;
