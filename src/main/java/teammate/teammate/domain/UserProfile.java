@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Entity
 @Getter @Setter
 @NoArgsConstructor
@@ -25,10 +23,19 @@ public class UserProfile {
 	@Column(name="profile_img")
 	private String profileImg;
 
-	@OneToMany(mappedBy="userProfile", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<UserSkills> skills;
+	public String getNickname() {
+		return user.getNickname();
+	}
 
-	@OneToMany(mappedBy = "userProfile", cascade= CascadeType.ALL, orphanRemoval = true)
-	private List<UserLinks> links;
+	public String getIntroduction() {
+		return user.getIntroduction();
+	}
 
+	public String getPreferredPosition() {
+		return user.getPreferredPosition();
+	}
+
+	public String getStatusMessage() {
+		return user.getStatusMessage();
+	}
 }
