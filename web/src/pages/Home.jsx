@@ -3,6 +3,7 @@ import axios from "axios";
 import Users from "./components/Users.jsx";
 import TeamCalendar from "./components/TeamCalendar.jsx";
 import TeamTodo from "./components/TeamTodo.jsx";
+import ScheduleView from "./components/ScheduleView.jsx"
 import styles from "../css/pages/Home.module.scss";
 
 const Home = () => {
@@ -20,6 +21,7 @@ const Home = () => {
             <section>
                 <Users />
                 <TeamCalendar />
+                <ScheduleView />
             </section>
             <section>
                 <TeamTodo />

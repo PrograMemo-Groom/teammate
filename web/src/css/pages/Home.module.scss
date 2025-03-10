@@ -73,6 +73,7 @@
 
 .todoContainer {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   gap: 20px;
 
@@ -85,9 +86,19 @@
     flex: 1 1 250px;
     max-width: 300px;
 
-    h3 {
-      margin-top: 0;
+    div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      h3 {
+        margin: 0;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+      }
     }
+
     ul {
       list-style-type: none;
       padding: 0;
@@ -95,10 +106,21 @@
       li {
         display: flex;
         align-items: center;
+        justify-content: space-between;
         margin: 5px 0;
 
         input[type="checkbox"] {
           margin-right: 10px;
+        }
+
+        .deleteButton {
+          align-self: end;
+          margin-left: 10px;
+          padding: 5px 10px;
+          border-radius: 50%;
+          background-color: #a0a0a0;
+          color: white;
+          cursor: pointer;
         }
       }
     }
@@ -152,4 +174,12 @@
 .saturday {
   color: blue !important;
   font-weight: bold;
+}
+
+
+.ScheduleViewContainer {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #555555;
+  border-radius: 8px;
 }
