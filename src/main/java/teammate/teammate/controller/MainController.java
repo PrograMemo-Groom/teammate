@@ -100,6 +100,12 @@ public class MainController {
         }
     }
 
+    @PostMapping("/calendar")
+    public ResponseEntity<String> addCalendar(@RequestBody CalendarEvents calendar) {
+        mainService.addCalendar(calendar);
+
+        return ResponseEntity.ok("Calendar successfully added.");
+    }
 
 
     /**
@@ -135,10 +141,10 @@ public class MainController {
      * @return RequestBody로 받은 team_code, user_id에 대해 Todo 추가
      */
     @PostMapping("/todos")
-    public ResponseEntity<Todos> addTodo(@RequestBody Todos addTodo) {
-        Todos addedTodo = mainService.addTodo(addTodo);
+    public ResponseEntity<String> addTodo(@RequestBody Todos addTodo) {
+        mainService.addTodo(addTodo);
 
-        return ResponseEntity.ok(addedTodo);
+        return ResponseEntity.ok("Todo successfully added.");
     }
 
     @DeleteMapping("/todos/{todoId}")

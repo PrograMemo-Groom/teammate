@@ -39,8 +39,8 @@ public class MainService {
         return mainRepository.updateTodo(todoId, updateTodo);
     }
 
-    public Todos addTodo(Todos addTodo) {
-        return mainRepository.addTodo(addTodo);
+    public void addTodo(Todos addTodo) {
+        mainRepository.addTodo(addTodo);
     }
 
     public boolean deleteTodo(int todoId) {
@@ -57,5 +57,9 @@ public class MainService {
 
     public boolean deleteCalendar(int id) {
         return mainRepository.deleteCalendar(id);
+    }
+
+    public void addCalendar(CalendarEvents calendar) {
+        mainRepository.addCalendar(calendar);
     }
 }
