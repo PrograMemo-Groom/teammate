@@ -42,4 +42,8 @@ public class MainService {
     public Todos addTodo(Todos addTodo) {
         return mainRepository.addTodo(addTodo);
     }
+
+    public boolean deleteTodo(int todoId) {
+        return mainRepository.deleteTodo(todoId);
+    }
 }

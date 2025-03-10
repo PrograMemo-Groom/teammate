@@ -93,4 +93,15 @@ public class MainRepository {
 
         return todo;  // 삽입한 Todo 객체 반환
     }
+
+    @Transactional
+    public boolean deleteTodo(int todoId) {
+        String sql = "DELETE FROM todos WHERE id = :todoId";
+
+        int rowsAffected = em.createNativeQuery(sql)
+                .setParameter("todoId", todoId)
+                .executeUpdate();
+
+        return rowsAffected > 0;
+    }
 }

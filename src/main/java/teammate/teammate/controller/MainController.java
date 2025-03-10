@@ -3,6 +3,7 @@ package teammate.teammate.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.Response;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import teammate.teammate.domain.CalendarEvents;
@@ -110,4 +111,14 @@ public class MainController {
         return ResponseEntity.ok(addedTodo);
     }
 
+    @DeleteMapping("/todos/{todoId}")
+    public ResponseEntity<String> deleteTodo(@PathVariable int todoId) {
+        boolean isDeleted = mainService.deleteTodo(todoId);
+
+        if (isDeleted) {
+            return ResponseEntity.ok("Todo deleted successfully.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Todo not found.");
+        }
+    }
 }
