@@ -116,8 +116,10 @@ public class MainController {
         boolean isDeleted = mainService.deleteTodo(todoId);
 
         if (isDeleted) {
-            return ResponseEntity.ok("Todo deleted successfully.");
+            log.info("Todo deleted successfully. Deleted todoId = {}", todoId); // 성공 로그
+            return ResponseEntity.ok("Todo deleted successfully. Deleted todoId = " + todoId);
         } else {
+            log.warn("Todo not found. Failed to delete todoId = {}", todoId); // 실패 로그
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Todo not found.");
         }
     }
