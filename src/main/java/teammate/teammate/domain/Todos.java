@@ -24,9 +24,8 @@ public class Todos {
     @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "user_id")
     private Users users;
 
-    @ManyToOne
-    @JoinColumn(name = "team_code", nullable = false, referencedColumnName = "team_code")
-    private Teams teams;
+    @Column(name = "team_code", nullable = false)
+    private String teamCode;
 
     @Column(nullable = false)
     private String task;
