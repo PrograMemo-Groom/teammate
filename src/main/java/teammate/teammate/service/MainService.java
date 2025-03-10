@@ -38,4 +38,8 @@ public class MainService {
     public Todos updateTodo(int todoId, Todos updateTodo) {
         return mainRepository.updateTodo(todoId, updateTodo);
     }
+
+    public Todos addTodo(Todos addTodo) {
+        return mainRepository.addTodo(addTodo);
+    }
 }

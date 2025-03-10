@@ -54,7 +54,6 @@ public class MainController {
 
 
     /**
-     *
      * @param teamCode
      * @param year
      * @param month
@@ -97,6 +96,13 @@ public class MainController {
     public ResponseEntity<Todos> updateTodo(@PathVariable int todoId, @RequestBody Todos updateTodo) {
         Todos updatedTodo = mainService.updateTodo(todoId, updateTodo);
         return ResponseEntity.ok(updatedTodo);
+    }
+
+    @PostMapping("/todos")
+    public ResponseEntity<Todos> addTodo(@RequestBody Todos addTodo) {
+        Todos addedTodo = mainService.addTodo(addTodo);
+
+        return ResponseEntity.ok(addedTodo);
     }
 
 }
