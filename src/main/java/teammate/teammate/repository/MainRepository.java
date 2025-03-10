@@ -73,7 +73,7 @@ public class MainRepository {
     }
 
     @Transactional
-    public Todos addTodo(Todos addTodo) {
+    public Todos addTodo(Todos addTodo) { // 업데이트 행수 로직으로 변경
         Todos todo = new Todos();
 //
 //        todo.getUsers(userId);
@@ -103,5 +103,18 @@ public class MainRepository {
                 .executeUpdate();
 
         return rowsAffected > 0;
+    }
+
+    // 일정 1개 조회
+    @Transactional(readOnly = true)
+    public CalendarEvents getCalendarById(int id) {
+        String sql = "SELECT c FROM CalendarEvents c WHERE c.id = :id";
+
+        CalendarEvents calendarEvents = em.createQuery(sql, CalendarEvents.class)
+                .setParameter("id", id)
+                .getSingleResult();
+
+        return calendarEvents;
+
     }
 }

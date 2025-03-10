@@ -22,7 +22,6 @@ public class MainController {
 
     private final MainService mainService;
 
-
     /**
      *
      * @param teamCode
@@ -68,6 +67,14 @@ public class MainController {
 
         return ResponseEntity.ok(event);
     }
+
+    @GetMapping("/calendar/{id}")
+    public ResponseEntity<CalendarEvents> getCalendarById(@PathVariable int id) {
+        CalendarEvents calendar = mainService.getCalendarById(id);
+
+        return ResponseEntity.ok(calendar);
+    }
+
 
 
     /**

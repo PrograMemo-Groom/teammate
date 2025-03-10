@@ -46,4 +46,8 @@ public class MainService {
     public boolean deleteTodo(int todoId) {
         return mainRepository.deleteTodo(todoId);
     }
+
+    public CalendarEvents getCalendarById(int id) {
+        return mainRepository.getCalendarById(id);
+    }
 }
