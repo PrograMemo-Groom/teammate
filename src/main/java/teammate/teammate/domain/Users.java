@@ -5,9 +5,11 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
+@Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -39,18 +41,13 @@ public class Users {
     @Column(length = 50, nullable = false)
     private String password;
 
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Todos> todosList;
+
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserSkills> userSkillsList;
+
     @Lob // BLOB 타입을 사용하기 위해 @Lob 어노테이션 추가
     @Column(name = "profile_img", columnDefinition = "BLOB")
     private byte[] profileImg; // BLOB 데이터로 이미지를 저장
-
-//    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Todos> todosList;
-//
-//    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<UserSkills> userSkillsList;
-
-//    // 팀과의 관계 설정
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "users")
-//    private List<Teams> teams; // 여러 팀에 속할 수 있는 경우
 }
