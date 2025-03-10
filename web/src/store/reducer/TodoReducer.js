@@ -31,10 +31,14 @@ const todoSlice = createSlice({
         },
         deleteTodo: (state, action) => {
             const { userIndex, todoIndex } = action.payload;
-            state.todos[userIndex].todos.splice(todoIndex, 1); // ✅ 해당 투두 삭제
+            state.todos[userIndex].todos.splice(todoIndex, 1);
+        },
+        addTodo: (state, action) => {
+            const { userIndex, newTodo } = action.payload;
+            state.todos[userIndex].todos.push(newTodo);
         }
     }
 });
 
-export const { toggleTodo , deleteTodo} = todoSlice.actions;
+export const { toggleTodo , deleteTodo, addTodo} = todoSlice.actions;
 export default todoSlice.reducer;
