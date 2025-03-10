@@ -34,7 +34,6 @@ public class MainController {
         return ResponseEntity.ok(users);
     }
 
-
     /**
      * @param teamCode
      * @param year
@@ -88,6 +87,19 @@ public class MainController {
 
         return ResponseEntity.ok(updatedCalendar);
     }
+
+    @DeleteMapping("/calendar/{id}")
+    public ResponseEntity<String> deleteCalendar(@PathVariable int id) {
+        boolean isDeleted =  mainService.deleteCalendar(id);
+
+        if (isDeleted) {
+            return ResponseEntity.ok("Todo deleted successfully. Deleted todoId = " + id);
+        } else {
+            log.warn("Todo not found. Failed to delete todoId = {}", id); // 실패 로그
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Todo not found.");
+        }
+    }
+
 
 
     /**

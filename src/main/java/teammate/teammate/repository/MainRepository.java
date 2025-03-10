@@ -131,4 +131,15 @@ public class MainRepository {
 
         return existingCalendar;
     }
+
+    @Transactional
+    public boolean deleteCalendar(int id) {
+        String sql = "DELETE FROM calendar_events WHERE id = :id";
+
+        int rowsAffected = em.createNativeQuery(sql)
+                .setParameter("id", id)
+                .executeUpdate();
+
+        return rowsAffected > 0;
+    }
 }
