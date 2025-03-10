@@ -8,6 +8,7 @@ import teammate.teammate.domain.CalendarEvents;
 import teammate.teammate.domain.Todos;
 import teammate.teammate.domain.Users;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -71,24 +72,26 @@ public class MainRepository {
 
     @Transactional
     public Todos addTodo(Todos addTodo) { // 업데이트 행수 로직으로 변경
-        Todos todo = new Todos();
+//        Todos todo = new Todos();
+//        em.persist();
 //
-//        todo.getUsers(userId);
-//        todo.setTeamCode(teamCode);
-//        todo.setTask(addTodo.getTask());
-//        todo.setCompleted(false); // 기본값은 false
+//        String sql = "INSERT INTO todos(user_id, team_code, task, completed) " + "VALUES (:userId, :teamCode, :task, :completed)";
+//
+//        // EntityManager를 이용하여 쿼리 실행
+//        em.createNativeQuery(sql)
+//                .setParameter("userId", addTodo.getUserId())
+//                .setParameter("teamCode", addTodo.getTeamCode())
+//                .setParameter("task", addTodo.getTask())
+//                .setParameter("completed", false) // 기본값으로 false
+//                .executeUpdate();
+//
+//        return todo;  // 삽입한 Todo 객체 반환
 
-        String sql = "INSERT INTO todos(user_id, team_code, task, completed) " + "VALUES (:userId, :teamCode, :task, :completed)";
-
-        // EntityManager를 이용하여 쿼리 실행
-        em.createNativeQuery(sql)
-                .setParameter("userId", addTodo.getUserId())
-                .setParameter("teamCode", addTodo.getTeamCode())
-                .setParameter("task", addTodo.getTask())
-                .setParameter("completed", false) // 기본값으로 false
-                .executeUpdate();
-
-        return todo;  // 삽입한 Todo 객체 반환
+        addTodo.setCompleted(false);  // 명시적으로 false 설정
+        addTodo.setCreateTime(LocalDateTime.now());
+        addTodo.setUpdateTime(LocalDateTime.now());
+        em.persist(addTodo); // Insert 쿼리
+        return addTodo;
     }
 
     @Transactional
@@ -142,4 +145,22 @@ public class MainRepository {
 
         return rowsAffected > 0;
     }
+
+//    @Transactional
+//    public boolean addCalendar(CalendarEvents calendar) {
+//        CalendarEvents newCalendar = new CalendarEvents();
+//
+//        String sql = "INSERT INTO calendar_events(team_code, title, description, category, start_date_at) "
+//                + "VALUES (:team_code, :title, :description, :category, :start_date_at)";
+//
+//        // EntityManager를 이용하여 쿼리 실행
+//        em.createNativeQuery(sql)
+//                .setParameter("team_code", calendar.getTeamCode())
+//                .setParameter("title", calendar.getTitle())
+//                .setParameter("description", calendar.getDescription())
+//                .setParameter("category", calendar.getCategory())
+//                .setParameter("start_date_at", calendar.getStartDateAt())
+//                .executeUpdate();
+//
+//    }
 }
