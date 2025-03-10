@@ -95,10 +95,21 @@
       li {
         display: flex;
         align-items: center;
+        justify-content: space-between;
         margin: 5px 0;
 
         input[type="checkbox"] {
           margin-right: 10px;
+        }
+
+        .deleteButton {
+          align-self: end;
+          margin-left: 10px;
+          padding: 5px 10px;
+          border-radius: 50%;
+          background-color: #a0a0a0;
+          color: white;
+          cursor: pointer;
         }
       }
     }

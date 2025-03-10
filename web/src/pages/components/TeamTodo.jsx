@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { toggleTodo } from "../../store/reducer/TodoReducer.js";
+import { toggleTodo, deleteTodo } from "../../store/reducer/TodoReducer.js";
 import styles from "../../css/pages/Home.module.scss";
 
 const TeamTodo = () => {
@@ -15,12 +15,22 @@ const TeamTodo = () => {
                     <ul>
                         {user.todos.map((todo, todoIndex) => (
                             <li key={`${todo.maker}-${todoIndex}`}>
-                                <input
-                                    type="checkbox"
-                                    checked={todo.checked}
-                                    onChange={() => dispatch(toggleTodo({ userIndex, todoIndex }))}
-                                />
-                                {todo.title}
+                                <div>
+                                    <input
+                                        type="checkbox"
+                                        checked={todo.checked}
+                                        onChange={() => dispatch(toggleTodo({userIndex, todoIndex}))}
+                                    />
+                                    <span>{todo.title}</span>
+                                </div>
+                                <div>
+                                    <button
+                                        onClick={() => dispatch(deleteTodo({userIndex, todoIndex}))}
+                                        className={styles.deleteButton}
+                                    >
+                                        X
+                                    </button>
+                                </div>
                             </li>
                         ))}
                     </ul>

@@ -28,9 +28,13 @@ const todoSlice = createSlice({
         toggleTodo: (state, action) => {
             const { userIndex, todoIndex } = action.payload;
             state.todos[userIndex].todos[todoIndex].checked = !state.todos[userIndex].todos[todoIndex].checked;
+        },
+        deleteTodo: (state, action) => {
+            const { userIndex, todoIndex } = action.payload;
+            state.todos[userIndex].todos.splice(todoIndex, 1); // ✅ 해당 투두 삭제
         }
     }
 });
 
-export const { toggleTodo } = todoSlice.actions;
+export const { toggleTodo , deleteTodo} = todoSlice.actions;
 export default todoSlice.reducer;
