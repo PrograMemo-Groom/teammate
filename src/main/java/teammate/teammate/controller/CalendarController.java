@@ -83,9 +83,13 @@ public class CalendarController {
     }
 
     @PostMapping
-    public ResponseEntity<String> addCalendar(@RequestBody CalendarEvents calendar) {
-        calendarService.addCalendar(calendar);
+    public ResponseEntity<ApiResponse> addCalendar(@RequestBody CalendarEvents calendar) {
+        boolean isCreated = calendarService.addCalendar(calendar);
 
-        return ResponseEntity.ok("Calendar successfully added.");
+        if(isCreated) {
+            return ResponseEntity.status(200).body(new ApiResponse(200, "일정 추가 성공"));
+        } else {
+            return ResponseEntity.status(404).body(new ApiResponse(404, "일정 생성 실패"));
+        }
     }
 }

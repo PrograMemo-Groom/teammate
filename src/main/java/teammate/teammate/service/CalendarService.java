@@ -56,8 +56,8 @@ public class CalendarService {
         return calendarRepository.deleteCalendar(id);
     }
 
-    public void addCalendar(CalendarEvents calendar) {
-        calendarRepository.addCalendar(calendar);
+    public boolean addCalendar(CalendarEvents calendar) {
+        return calendarRepository.addCalendar(calendar);
     }
 
     public ApiResponse<List<CalendarEvents>> getCalendar(String teamCode, int year, int month) {
