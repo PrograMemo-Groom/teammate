@@ -1,17 +1,9 @@
 package teammate.teammate.controller;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Getter
 @AllArgsConstructor
@@ -56,5 +48,4 @@ public class ApiResponse<T> {
     public static ApiResponse<?> createError(String message) {
         return new ApiResponse<>(NOT_FOUND_STATUS, message, null);
     }
-
 }
