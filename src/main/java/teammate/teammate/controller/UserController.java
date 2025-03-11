@@ -1,20 +1,19 @@
 package teammate.teammate.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import teammate.teammate.ProfileUpdateRequest;
 import teammate.teammate.domain.Users;
 import teammate.teammate.service.UserService;
 
 import java.io.IOException;
-import java.math.BigInteger;
-import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-//@RequestMapping("/api")
 @RequestMapping("/users")
 @Slf4j
 @RequiredArgsConstructor
@@ -30,18 +29,41 @@ public class UserController {
     }
 
     // 프로필 수정 API
-    @PutMapping("/profile/{userId}")
-    public ResponseEntity<Users> updateUserProfile(
+    @PutMapping(value="/profile/{userId}", consumes = {"multipart/form-data"})
+    public ResponseEntity<Map<String, Object>> updateUserProfile(
             @PathVariable("userId") String userId,
-            @RequestBody Users updatedUser) {
-        Users updated = userService.updateUserProfile(userId, updatedUser);
+            @RequestPart("user") String userJson,  // JSON을 String으로 받음
+            @RequestPart(value = "profileImg", required = false) MultipartFile profileImg
+    ) throws IOException {
+        // JSON을 객체로 변환 (Jackson 사용)
+        ObjectMapper objectMapper = new ObjectMapper();
+        ProfileUpdateRequest request = objectMapper.readValue(userJson, ProfileUpdateRequest.class);
+
+        // 이미지가 정상적으로 들어오는지 확인
+        if (profileImg != null && !profileImg.isEmpty()) {
+            log.info("프로필 이미지 업로드 요청됨: 파일명 = {}", profileImg.getOriginalFilename());
+        } else {
+            log.warn("프로필 이미지가 포함되지 않음");
+        }
+
+        Users updated = userService.updateUserProfile(
+                userId,
+                request.getNickname(),
+                request.getIntroduction(),
+                request.getPreferredPosition(),
+                request.getStatusMessage(),
+                request.getSkills(),
+                request.getUrls(),
+                profileImg
+        );
 
         // 응답 메시지 추가
-        Map<String, Object> response = new HashMap<>();
-        response.put("message", "프로필이 성공적으로 수정되었습니다.");
-        response.put("updatedProfile", updated);
+        Map<String, Object> response = Map.of(
+                "message", "프로필이 성공적으로 수정되었습니다.",
+                "updatedProfile", updated
+        );
 
-        return ResponseEntity.ok(updated);
+        return ResponseEntity.ok(response);
     }
 
     // 상태 메시지 조회 API
@@ -57,25 +79,20 @@ public class UserController {
             @PathVariable("userId") String userId,
             @RequestParam("file") MultipartFile file) {
         try {
+            log.info("업로드 요청됨 - userId: {}, 파일명: {}", userId, file.getOriginalFilename());
+
+            if (file.isEmpty()) {
+                log.warn("업로드된 파일이 없음");
+                return ResponseEntity.badRequest().body(Map.of("error", "파일이 없습니다."));
+            }
+
             String imageUrl = userService.uploadProfileImage(userId, file);
+            log.info("업로드 성공: {}", imageUrl);
             return ResponseEntity.ok(Map.of("imageUrl", imageUrl));
         } catch (IOException e) {
+            log.error("이미지 업로드 실패", e);
             return ResponseEntity.badRequest().body(Map.of("error", "이미지 업로드 실패"));
         }
     }
-
-//
-//    @GetMapping("/data")
-//    public String data(){
-//        return "연결 테스트";
-//    }
-//
-//    @GetMapping("/getuser")
-//    public String getUser() {
-//        Users users = userService.getUserByUsername(1);
-//
-//        return users.getUserId();
-//    }
-
 
 }
