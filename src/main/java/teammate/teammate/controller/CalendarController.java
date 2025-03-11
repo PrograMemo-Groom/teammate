@@ -25,11 +25,11 @@ public class CalendarController {
      * @return 캘린더의 해당 연월에 해당하는 모든 일정 데이터 조회
      */
     @GetMapping("/{teamCode}/{year}/{month}")
-    public ResponseEntity<List<CalendarEvents>> getTeamCalendar(@PathVariable String teamCode,
-                                                                @PathVariable int year, @PathVariable int month) {
-        List<CalendarEvents> calendarEvents = calendarService.getCalendar(teamCode, year, month);
+    public ResponseEntity<ApiResponse<List<CalendarEvents>>> getTeamCalendar3(@PathVariable String teamCode,
+                                                                              @PathVariable int year, @PathVariable int month) {
+        ApiResponse<List<CalendarEvents>> calendarEvents = calendarService.getCalendar(teamCode, year, month);
 
-        return ResponseEntity.ok(calendarEvents);
+        return ResponseEntity.status(calendarEvents.getStatus()).body(calendarEvents);
     }
 
 
