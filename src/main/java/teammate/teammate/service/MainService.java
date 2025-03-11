@@ -25,21 +25,7 @@ public class MainService {
 
 
 
-    public Map<String, List<Todos>> getTodos(String teamCode, int year, int month, int day) {
-        return mainRepository.getTodos(teamCode, year, month, day);
-    }
 
-    public Todos updateTodo(int todoId, Todos updateTodo) {
-        return mainRepository.updateTodo(todoId, updateTodo);
-    }
-
-    public void addTodo(Todos addTodo) {
-        mainRepository.addTodo(addTodo);
-    }
-
-    public boolean deleteTodo(int todoId) {
-        return mainRepository.deleteTodo(todoId);
-    }
 
 
 }
