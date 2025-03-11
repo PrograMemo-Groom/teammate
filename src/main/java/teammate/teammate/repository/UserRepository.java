@@ -12,16 +12,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<Users, Integer> {
+public interface UserRepository extends JpaRepository<Users, Integer>, UserRepositoryCustom{
     Optional<Users> findByUserId(String userId);
-//    private final EntityManager em;
-//
-//    public Users getUserByUsername(int user_id){
-//        String query = "select u from Users u";
-//
-//        List<Users> resultList = em.createQuery(query, Users.class).getResultList();
-//
-//        return resultList.get(0);
-//    }
 
+    List<Users> getTeamUsersByTeamCode(String teamCode);
 }

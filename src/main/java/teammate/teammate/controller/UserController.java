@@ -11,6 +11,7 @@ import teammate.teammate.domain.Users;
 import teammate.teammate.service.UserService;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -93,6 +94,19 @@ public class UserController {
             log.error("이미지 업로드 실패", e);
             return ResponseEntity.badRequest().body(Map.of("error", "이미지 업로드 실패"));
         }
+    }
+
+    /**
+     * @param teamCode
+     * @return 해당 팀코드에 해당하는 팀의 유저들 정보 조회
+     */
+    @GetMapping("/{teamCode}")
+    public ResponseEntity<List<Users>> getTeamUsers(@PathVariable String teamCode) {
+        List<Users> users = userService.getTeamUsersByTeamCode(teamCode);
+
+        log.info("users {}", users.toString());
+
+        return ResponseEntity.ok(users);
     }
 
 }
