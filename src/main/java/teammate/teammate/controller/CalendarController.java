@@ -65,10 +65,10 @@ public class CalendarController {
      * @return id에 일정 모달 데이터를 업데이트
      */
     @PostMapping("/{id}")
-    public ResponseEntity<CalendarEvents> updateCalendar(@PathVariable int id, @RequestBody CalendarEvents updateCalendar) {
-        CalendarEvents updatedCalendar = calendarService.updateCalendar(id, updateCalendar);
+    public ResponseEntity<ApiResponse<CalendarEvents>> updateCalendar(@PathVariable int id, @RequestBody CalendarEvents updateCalendar) {
+        ApiResponse<CalendarEvents> updatedCalendar = calendarService.updateCalendar(id, updateCalendar);
 
-        return ResponseEntity.ok(updatedCalendar);
+        return ResponseEntity.status(updatedCalendar.getStatus()).body(updatedCalendar);
     }
 
     @DeleteMapping("/{id}")
