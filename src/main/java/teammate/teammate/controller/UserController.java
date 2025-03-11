@@ -100,7 +100,7 @@ public class UserController {
      * @param teamCode
      * @return 해당 팀코드에 해당하는 팀의 유저들 정보 조회
      */
-    @GetMapping("/users/{teamCode}")
+    @GetMapping("/{teamCode}")
     public ResponseEntity<List<Users>> getTeamUsers(@PathVariable String teamCode) {
         List<Users> users = userService.getTeamUsersByTeamCode(teamCode);
 
