@@ -1,5 +1,6 @@
 package teammate.teammate.controller;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,6 +15,7 @@ import java.util.Map;
 
 @Getter
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL) // null 값은 직렬화하지 않도록 설정
 public class ApiResponse<T> {
 
     private static final int SUCCESS_STATUS = 200;
@@ -23,6 +25,17 @@ public class ApiResponse<T> {
     private int status;
     private String message;
     private T data;
+
+    // update 또는 delete 수행 시 data는 필요 없음
+    public ApiResponse(int status, String message) {
+        this.status = status;
+        this.message = message;
+    }
+
+    // data가 없는 경우, message만 전달
+    public static ApiResponse<?> createMessageOnlyResponse(int status, String message) {
+        return new ApiResponse<>(status, message);
+    }
 
     // 성공적으로 api 통신 이뤄졌을 때
     public static <T> ApiResponse<T> createSuccess(T data, String message) {
@@ -38,4 +51,5 @@ public class ApiResponse<T> {
     public static ApiResponse<?> createError(String message) {
         return new ApiResponse<>(ERROR_STATUS, message, null);
     }
+
 }
