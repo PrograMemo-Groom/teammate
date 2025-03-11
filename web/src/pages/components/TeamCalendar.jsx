@@ -8,14 +8,38 @@ import Schedule from "./Schedule.jsx";
 const TeamCalendar = ({ selectedDate, setSelectedDate }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [role, setRole] = useState("OWNER"); // 일단 더미 데이터, 나중에 API 연동코드로 변경 필요 !!!!!!!!!
-    //const [role, setRole] = useState("MEMBER");
+
+    // 더미 일정 데이터 !!!!!!!!
+    const dummySchedules = [
+        {
+            id: 1,
+            teamCode: "TEAM001",
+            title: "백엔드 스터디",
+            description: "Spring Boot 학습 모임",
+            category: "일정",
+            startDateAt: "2025-03-09T14:00:00",
+        },
+        {
+            id: 4,
+            teamCode: "TEAM001",
+            title: "팀회의",
+            description: "플젝 회의합시데이",
+            category: "회의",
+            startDateAt: "2025-03-10T14:00:00",
+        },
+    ];
 
     const handleModalOpen = (value) => {
         setIsOpen(value);
         console.log("modal open clicked", isOpen);
     };
 
-    const eventDates = ["2025-03-12", "2025-03-18", "2025-03-26"];
+    // 날짜별 일정 데이터 매핑
+    const eventDates = dummySchedules.reduce((acc, schedule) => {
+        const date = dayjs(schedule.startDateAt).format("YYYY-MM-DD");
+        acc[date] = schedule.category;
+        return acc;
+    }, {});
 
     return (
         <section>
@@ -35,14 +59,15 @@ const TeamCalendar = ({ selectedDate, setSelectedDate }) => {
                     slotProps={{
                         day: (params) => {
                             const formattedDate = dayjs(params.day).format("YYYY-MM-DD");
+                            const category = eventDates[formattedDate];
 
-                            if (eventDates.includes(formattedDate)) {
+                            if (category) {
                                 return {
                                     sx: {
                                         position: "relative",
                                         "&::after": {
                                             content: '"●"',
-                                            color: "red",
+                                            color: category === "회의" ? "pink" : "lightgreen",
                                             fontSize: "12px",
                                             position: "absolute",
                                             bottom: -1,
