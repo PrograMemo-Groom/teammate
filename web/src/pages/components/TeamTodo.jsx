@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { toggleTodo, deleteTodo, addTodo, editTodo } from "../../store/reducer/TodoReducer.js";
 import styles from "../../css/pages/Home.module.scss";
 
-const TeamTodo = () => {
+const TeamTodo = ({ selectedDate }) => {
     const dispatch = useDispatch();
     const todos = useSelector((state) => state.todo.todos);
     const [editingTodo, setEditingTodo] = useState(null);
@@ -36,6 +36,7 @@ const TeamTodo = () => {
 
     return (
         <section className={styles.todoContainer}>
+            <h2>{selectedDate}의 팀 TODO</h2>
             {todos.map((user, userIndex) => (
                 <article key={`todo-${userIndex}`}>
                     <div>
@@ -43,7 +44,7 @@ const TeamTodo = () => {
                         <button onClick={() => handleAddTodo(userIndex)}>todo 추가</button>
                     </div>
                     <ul>
-                    {user.todos.map((todo, todoIndex) => (
+                        {user.todos.map((todo, todoIndex) => (
                             <li key={`${todo.maker}-${todoIndex}`}>
                                 <div>
                                     <input

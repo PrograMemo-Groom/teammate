@@ -1,12 +1,11 @@
+import React from "react";
 import styles from "../../css/pages/Home.module.scss";
-import React, { useState } from "react";
 import { LocalizationProvider, StaticDatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import Schedule from "./Schedule.jsx";
 
-const TeamCalendar = () => {
-    const [date, setDate] = useState(dayjs());
+const TeamCalendar = ({ selectedDate, setSelectedDate }) => {
     const [isOpen, setIsOpen] = React.useState(false);
 
     const handleModalOpen = (value) => {
@@ -19,17 +18,16 @@ const TeamCalendar = () => {
     return (
         <section>
             <div className={styles.calendarContainer}>
-                <p>{dayjs().format('YYYY년 M월')}</p>
+                <p>{dayjs(selectedDate).format('YYYY년 M월')}</p>
                 <button onClick={() => handleModalOpen(true)}>+일정등록</button>
-                {isOpen && (<Schedule onClose={() => setIsOpen(false)}/>)}
-
+                {isOpen && <Schedule onClose={() => setIsOpen(false)} />}
             </div>
 
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <StaticDatePicker
                     displayStaticWrapperAs="desktop"
-                    value={date}
-                    onChange={(newValue) => setDate(newValue)}
+                    value={dayjs(selectedDate)}
+                    onChange={(newValue) => setSelectedDate(newValue.format("YYYY-MM-DD"))} // 선택한 날짜 변경
                     slotProps={{
                         day: (params) => {
                             const formattedDate = dayjs(params.day).format("YYYY-MM-DD");
