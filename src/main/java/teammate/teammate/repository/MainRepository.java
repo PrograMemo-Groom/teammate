@@ -8,6 +8,7 @@ import teammate.teammate.domain.CalendarEvents;
 import teammate.teammate.domain.Todos;
 import teammate.teammate.domain.Users;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -63,35 +64,19 @@ public class MainRepository {
         Todos existingTodo = em.createQuery(sql, Todos.class).setParameter("todoId", todoId).getSingleResult();
 
         // Todo 업데이트 로직
-        // 변경된 할 일이 있으면
-        if (updateTodo.getTask() != null) {
-            existingTodo.setTask(updateTodo.getTask());
-        }
+        existingTodo.setTask(updateTodo.getTask());
         existingTodo.setCompleted(updateTodo.getCompleted());
 
         return existingTodo;
     }
 
     @Transactional
-    public Todos addTodo(Todos addTodo) {
-        Todos todo = new Todos();
-//
-//        todo.getUsers(userId);
-//        todo.setTeamCode(teamCode);
-//        todo.setTask(addTodo.getTask());
-//        todo.setCompleted(false); // 기본값은 false
-
-        String sql = "INSERT INTO todos(user_id, team_code, task, completed) " + "VALUES (:userId, :teamCode, :task, :completed)";
-
-        // EntityManager를 이용하여 쿼리 실행
-        em.createNativeQuery(sql)
-                .setParameter("userId", addTodo.getUserId())
-                .setParameter("teamCode", addTodo.getTeamCode())
-                .setParameter("task", addTodo.getTask())
-                .setParameter("completed", false) // 기본값으로 false
-                .executeUpdate();
-
-        return todo;  // 삽입한 Todo 객체 반환
+    public void addTodo(Todos addTodo) { // 업데이트 행수 로직으로 변경
+        addTodo.setCompleted(false);  // 명시적으로 false 설정
+        addTodo.setCreateTime(LocalDateTime.now());
+        addTodo.setUpdateTime(LocalDateTime.now());
+        em.persist(addTodo); // Insert 쿼리
+//        return addTodo;
     }
 
     @Transactional
@@ -103,5 +88,51 @@ public class MainRepository {
                 .executeUpdate();
 
         return rowsAffected > 0;
+    }
+
+    // 일정 1개 조회
+    @Transactional(readOnly = true)
+    public CalendarEvents getCalendarById(int id) {
+        String sql = "SELECT c FROM CalendarEvents c WHERE c.id = :id";
+
+        CalendarEvents calendarEvents = em.createQuery(sql, CalendarEvents.class)
+                .setParameter("id", id)
+                .getSingleResult();
+
+        return calendarEvents;
+
+    }
+
+    @Transactional
+    public CalendarEvents updateCalendar(int id, CalendarEvents updateCalendar) {
+        String sql = "SELECT c FROM CalendarEvents c WHERE c.id = :id";
+
+        CalendarEvents existingCalendar = em.createQuery(sql, CalendarEvents.class)
+                .setParameter("id", id)
+                .getSingleResult();
+
+        // 업데이트 로직
+        existingCalendar.setTitle(updateCalendar.getTitle());
+        existingCalendar.setCategory(updateCalendar.getCategory());
+        existingCalendar.setDescription(updateCalendar.getDescription());
+        existingCalendar.setStartDateAt(updateCalendar.getStartDateAt());
+
+        return existingCalendar;
+    }
+
+    @Transactional
+    public boolean deleteCalendar(int id) {
+        String sql = "DELETE FROM calendar_events WHERE id = :id";
+
+        int rowsAffected = em.createNativeQuery(sql)
+                .setParameter("id", id)
+                .executeUpdate();
+
+        return rowsAffected > 0;
+    }
+
+    @Transactional
+    public void addCalendar(CalendarEvents calendar) {
+        em.persist(calendar); // insert 자동
     }
 }

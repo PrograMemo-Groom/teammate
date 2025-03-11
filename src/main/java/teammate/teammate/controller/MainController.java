@@ -2,7 +2,6 @@ package teammate.teammate.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +21,7 @@ public class MainController {
 
     private final MainService mainService;
 
-
     /**
-     *
      * @param teamCode
      * @return 해당 팀코드에 해당하는 팀의 유저들 정보 조회
      */
@@ -37,9 +34,7 @@ public class MainController {
         return ResponseEntity.ok(users);
     }
 
-
     /**
-     *
      * @param teamCode
      * @param year
      * @param month
@@ -63,10 +58,53 @@ public class MainController {
      */
     @GetMapping("/calendar/{teamCode}/{year}/{month}/{day}")
     public ResponseEntity<List<CalendarEvents>> getEvent(@PathVariable String teamCode,
-                                                   @PathVariable int year, @PathVariable int month, @PathVariable int day) {
+                                                         @PathVariable int year, @PathVariable int month, @PathVariable int day) {
         List<CalendarEvents> event = mainService.getEvent(teamCode, year, month, day);
 
         return ResponseEntity.ok(event);
+    }
+
+    /**
+     * @param id
+     * @return id로 일정 모달 데이터 1개를 조회
+     */
+    @GetMapping("/calendar/{id}")
+    public ResponseEntity<CalendarEvents> getCalendarById(@PathVariable int id) {
+        CalendarEvents calendar = mainService.getCalendarById(id);
+
+        return ResponseEntity.ok(calendar);
+    }
+
+
+    /**
+     * @param id
+     * @param updateCalendar
+     * @return id에 일정 모달 데이터를 업데이트
+     */
+    @PostMapping("/calendar/{id}")
+    public ResponseEntity<CalendarEvents> updateCalendar(@PathVariable int id, @RequestBody CalendarEvents updateCalendar) {
+        CalendarEvents updatedCalendar = mainService.updateCalendar(id, updateCalendar);
+
+        return ResponseEntity.ok(updatedCalendar);
+    }
+
+    @DeleteMapping("/calendar/{id}")
+    public ResponseEntity<String> deleteCalendar(@PathVariable int id) {
+        boolean isDeleted =  mainService.deleteCalendar(id);
+
+        if (isDeleted) {
+            return ResponseEntity.ok("Todo deleted successfully. Deleted todoId = " + id);
+        } else {
+            log.warn("Todo not found. Failed to delete todoId = {}", id); // 실패 로그
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Todo not found.");
+        }
+    }
+
+    @PostMapping("/calendar")
+    public ResponseEntity<String> addCalendar(@RequestBody CalendarEvents calendar) {
+        mainService.addCalendar(calendar);
+
+        return ResponseEntity.ok("Calendar successfully added.");
     }
 
 
@@ -88,7 +126,6 @@ public class MainController {
 
 
     /**
-     *
      * @param todoId
      * @param updateTodo
      * @return 해당 todoId에 대해서 입력받은 todoData 값으로 업데이트
@@ -100,15 +137,14 @@ public class MainController {
     }
 
     /**
-     *
      * @param addTodo
      * @return RequestBody로 받은 team_code, user_id에 대해 Todo 추가
      */
     @PostMapping("/todos")
-    public ResponseEntity<Todos> addTodo(@RequestBody Todos addTodo) {
-        Todos addedTodo = mainService.addTodo(addTodo);
+    public ResponseEntity<String> addTodo(@RequestBody Todos addTodo) {
+        mainService.addTodo(addTodo);
 
-        return ResponseEntity.ok(addedTodo);
+        return ResponseEntity.ok("Todo successfully added.");
     }
 
     @DeleteMapping("/todos/{todoId}")
