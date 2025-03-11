@@ -137,5 +137,10 @@ public class UserService {
         return "uploads/" + fileName;
     }
 
+    public List<Users> getTeamUsersByTeamCode(String teamCode){
+
+        return userRepository.getTeamUsersByTeamCode(teamCode);
+    }
+
 
 }
