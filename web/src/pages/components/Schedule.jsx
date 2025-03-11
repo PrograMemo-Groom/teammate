@@ -28,7 +28,7 @@ const Schedule = ({onClose}) => {
                             </select>
                             <select>
                                 <option>00</option>
-                                <option>01</option>
+                                <option>30</option>
                             </select>
                         </div>
                     </div>
