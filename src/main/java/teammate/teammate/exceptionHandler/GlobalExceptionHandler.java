@@ -1,5 +1,6 @@
 package teammate.teammate.exceptionHandler;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,6 +25,18 @@ public class GlobalExceptionHandler {
         return ApiResponse.createError(message);
     }
 
+    // 숫자 변환 실패
+    @ExceptionHandler(NumberFormatException.class)
+    public ApiResponse<?> handleNumberFormatException(NumberFormatException e) {
+        return ApiResponse.createError("숫자 변환 오류: " + e.getMessage());
+    }
+
+    // 데이터베이스 접근 오류
+    @ExceptionHandler(DataAccessException.class)
+    public ApiResponse<?> handleDataAccessException(DataAccessException e) {
+        return ApiResponse.createError("데이터베이스 오류 발생: " + e.getMessage());
+    }
+
     // 요구되는 값이 비어있을 때
     @ExceptionHandler(NullPointerException.class)
     public ResponseEntity<ApiResponse<?>> handleNullPointerException(NullPointerException ex) {
@@ -31,5 +44,10 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-
+    // 유효하지 않은 요청 파라미터
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ApiResponse<?>> handleIllegalArgumentException(IllegalArgumentException ex) {
+        ApiResponse<?> response = ApiResponse.createError("잘못된 요청: " + ex.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 }
