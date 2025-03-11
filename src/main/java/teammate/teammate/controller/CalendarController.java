@@ -32,22 +32,6 @@ public class CalendarController {
         return ResponseEntity.status(calendarEvents.getStatus()).body(calendarEvents);
     }
 
-
-    /**
-     * @param teamCode
-     * @param year
-     * @param month
-     * @param day
-     * @return 캘린더의 해당 연월일에 해당하는 일정 데이터 조회
-     */
-//    @GetMapping("/{teamCode}/{year}/{month}/{day}")
-//    public ResponseEntity<List<CalendarEvents>> getEvent(@PathVariable String teamCode,
-//                                                         @PathVariable int year, @PathVariable int month, @PathVariable int day) {
-//        List<CalendarEvents> event = calendarService.getEvent(teamCode, year, month, day);
-//
-//        return ResponseEntity.ok(event);
-//    }
-
     /**
      * @param teamCode
      * @param year
