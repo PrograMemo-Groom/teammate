@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import teammate.teammate.domain.CalendarEvents;
 import teammate.teammate.service.CalendarService;
-import teammate.teammate.service.MainService;
 
 import java.util.List;
 
