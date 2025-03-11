@@ -20,12 +20,18 @@ const Schedule = ({onClose}) => {
                         <label>시간</label>
                         <div className={styles.selectGroup}>
                             <select>
-                                <option>16</option>
-                                <option>17</option>
+                                {Array.from(Array(24),(_, i) =>
+                                    (<option key={i} value={i}>
+                                        {i.toString().padStart(2, "0")}
+                                    </option>)
+                                )}
                             </select>
                             <select>
-                                <option>00</option>
-                                <option>01</option>
+                                {Array.from(Array(12), (_, i) => (
+                                    <option key={i} value={i * 5}>
+                                        {String(i * 5).padStart(2, "0")}
+                                    </option>
+                                ))}
                             </select>
                         </div>
                     </div>
