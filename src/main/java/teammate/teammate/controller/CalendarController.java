@@ -47,18 +47,15 @@ public class CalendarController {
         return ResponseEntity.status(event.getStatus()).body(event);
     }
 
-
-
-
     /**
      * @param id
      * @return id로 일정 모달 데이터 1개를 조회
      */
     @GetMapping("/{id}")
-    public ResponseEntity<CalendarEvents> getCalendarById(@PathVariable int id) {
-        CalendarEvents calendar = calendarService.getCalendarById(id);
+    public ResponseEntity<ApiResponse<CalendarEvents>> getCalendarById(@PathVariable int id) {
+        ApiResponse<CalendarEvents> calendar = calendarService.getCalendarById(id);
 
-        return ResponseEntity.ok(calendar);
+        return ResponseEntity.status(calendar.getStatus()).body(calendar);
     }
 
 
