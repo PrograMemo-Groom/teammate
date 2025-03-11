@@ -23,13 +23,7 @@ public class MainService {
         return mainRepository.getTeamUsersByTeamCode(teamCode);
     }
 
-    public List<CalendarEvents> getCalendar(String teamCode, int year, int month) {
-        return mainRepository.getCalendar(teamCode, year, month);
-    }
 
-    public List<CalendarEvents> getEvent(String teamCode, int year, int month, int day) {
-        return mainRepository.getEvent(teamCode, year, month, day);
-    }
 
     public Map<String, List<Todos>> getTodos(String teamCode, int year, int month, int day) {
         return mainRepository.getTodos(teamCode, year, month, day);
@@ -47,19 +41,5 @@ public class MainService {
         return mainRepository.deleteTodo(todoId);
     }
 
-    public CalendarEvents getCalendarById(int id) {
-        return mainRepository.getCalendarById(id);
-    }
 
-    public CalendarEvents updateCalendar(int id, CalendarEvents updateCalendar) {
-        return mainRepository.updateCalendar(id, updateCalendar);
-    }
-
-    public boolean deleteCalendar(int id) {
-        return mainRepository.deleteCalendar(id);
-    }
-
-    public void addCalendar(CalendarEvents calendar) {
-        mainRepository.addCalendar(calendar);
-    }
 }
