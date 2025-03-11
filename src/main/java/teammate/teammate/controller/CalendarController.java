@@ -12,7 +12,7 @@ import teammate.teammate.service.MainService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/main/calendar/")
+@RequestMapping("/main/calendar")
 @Slf4j
 @RequiredArgsConstructor
 public class CalendarController {
@@ -85,7 +85,7 @@ public class CalendarController {
         }
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<String> addCalendar(@RequestBody CalendarEvents calendar) {
         calendarService.addCalendar(calendar);
 
