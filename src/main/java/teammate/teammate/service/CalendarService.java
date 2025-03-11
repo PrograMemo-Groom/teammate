@@ -34,10 +34,6 @@ public class CalendarService {
         calendarRepository.addCalendar(calendar);
     }
 
-//    public List<CalendarEvents> getCalendar(String teamCode, int year, int month) {
-//        return calendarRepository.getCalendar(teamCode, year, month);
-//    }
-
     public ApiResponse<List<CalendarEvents>> getCalendar(String teamCode, int year, int month) {
         try {
             // 필수 값 검증
