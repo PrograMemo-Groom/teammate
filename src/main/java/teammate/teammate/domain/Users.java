@@ -1,6 +1,5 @@
 package teammate.teammate.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -44,12 +43,4 @@ public class Users {
     @Lob // BLOB 타입을 사용하기 위해 @Lob 어노테이션 추가
     @Column(name = "profile_img", columnDefinition = "BLOB")
     private byte[] profileImg; // BLOB 데이터로 이미지를 저장
-
-    // 사용자 기술 스택 (1:N 관계 설정)
-    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UserSkills> userSkills;
-
-    // 사용자 URL (1:N 관계 설정)
-    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UserLinks> userLinks;
 }
