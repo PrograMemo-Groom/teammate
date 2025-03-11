@@ -72,14 +72,13 @@ public class CalendarController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteCalendar(@PathVariable int id) {
+    public ResponseEntity<ApiResponse> deleteCalendar(@PathVariable int id) {
         boolean isDeleted = calendarService.deleteCalendar(id);
-
         if (isDeleted) {
-            return ResponseEntity.ok("Todo deleted successfully. Deleted todoId = " + id);
+            return ResponseEntity.status(200).body(new ApiResponse(200, "일정 삭제 성공"));
         } else {
             log.warn("Todo not found. Failed to delete todoId = {}", id); // 실패 로그
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Todo not found.");
+            return ResponseEntity.status(404).body(new ApiResponse(404, String.format("실패 : %d번에 해당하는 일정 또는 회의를 찾지 못했습니다.", id)));
         }
     }
 
