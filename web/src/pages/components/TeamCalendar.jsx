@@ -5,9 +5,8 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import Schedule from "./Schedule.jsx";
 
-const TeamCalendar = ({ selectedDate, setSelectedDate }) => {
+const TeamCalendar = ({ selectedDate, setSelectedDate, role }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [role, setRole] = useState("OWNER"); // 일단 더미 데이터, 나중에 API 연동코드로 변경 필요 !!!!!!!!!
 
     // 더미 일정 데이터 !!!!!!!!
     const dummySchedules = [

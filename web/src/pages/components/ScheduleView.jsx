@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from "../../css/pages/Home.module.scss";
 import dayjs from "dayjs";
+import Schedule from "./Schedule.jsx";
 
 const dummySchedules = [
     {
@@ -21,18 +22,33 @@ const dummySchedules = [
     },
 ];
 
-const ScheduleView = ({ selectedDate }) => {
+const ScheduleView = ({ selectedDate, role }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedSchedule, setSelectedSchedule] = useState(null);
+
     const formattedDate = dayjs(selectedDate).format("YYYY-MM-DD");
 
     const filteredSchedules = dummySchedules.filter(schedule =>
         dayjs(schedule.startDateAt).format("YYYY-MM-DD") === formattedDate
     );
 
+    // 팀장일 경우 일정 더블클릭 시 모달창 열기
+    const handleDoubleClick = (schedule) => {
+        if (role === "OWNER") {
+            setSelectedSchedule(schedule);
+            setIsOpen(true);
+        }
+    };
+
     return (
         <section className={styles.ScheduleViewContainer}>
             {filteredSchedules.length > 0 ? (
                 filteredSchedules.map(schedule => (
-                    <div key={schedule.id}>
+                    <div
+                        key={schedule.id}
+                        onDoubleClick={() => handleDoubleClick(schedule)}
+                        style={{ cursor: role === "OWNER" ? "pointer" : "default" }}
+                    >
                         <h3>{schedule.title}</h3>
                         <p>{schedule.description}</p>
                     </div>
@@ -40,6 +56,9 @@ const ScheduleView = ({ selectedDate }) => {
             ) : (
                 <p>일정이 없습니다.</p>
             )}
+
+            {/* 모달창 */}
+            {isOpen && <Schedule onClose={() => setIsOpen(false)} schedule={selectedSchedule} />}
         </section>
     );
 };

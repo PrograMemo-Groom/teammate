@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import Users from "./components/Users.jsx";
 import TeamCalendar from "./components/TeamCalendar.jsx";
@@ -9,7 +9,8 @@ import dayjs from "dayjs";
 
 const Home = () => {
     const [data, setData] = useState("");
-    const [selectedDate, setSelectedDate] = useState(dayjs().format("YYYY-MM-DD")); // 캘린더에서 선택된 날짜,,,!
+    const [selectedDate, setSelectedDate] = useState(dayjs().format("YYYY-MM-DD"));
+    const [role, setRole] = useState("OWNER"); // <<<--- 더미데이터 !!!!!
 
     useEffect(() => {
         axios
@@ -22,12 +23,10 @@ const Home = () => {
         <div className={styles.container}>
             <section>
                 <Users />
-                {/* 선택된 날짜를 변경할 수 있도록 setSelectedDate 전달 */}
-                <TeamCalendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
-                <ScheduleView selectedDate={selectedDate} />
+                <TeamCalendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} role={role} />
+                <ScheduleView selectedDate={selectedDate} role={role} />
             </section>
             <section>
-                {/* 선택된 날짜의 todo 만 표시하도록 전달 */}
                 <TeamTodo selectedDate={selectedDate} />
             </section>
         </div>
