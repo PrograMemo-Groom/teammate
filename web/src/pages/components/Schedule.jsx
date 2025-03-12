@@ -1,7 +1,7 @@
 import React, {useState, useRef} from 'react';
 import styles from "../../css/pages/Schedule.module.scss";
 
-const Schedule = ({onClose}) => {
+const Schedule = ({onClose , onRecord}) => {
 
     const [date, setDate] = useState("");
     const [hour, setHour] = useState("00");
@@ -17,6 +17,7 @@ const Schedule = ({onClose}) => {
         }
 
         console.log({ date, hour, minute, category, title, description });
+        onRecord(date);
         alert("등록되었습니다.");
         onClose();
     };
