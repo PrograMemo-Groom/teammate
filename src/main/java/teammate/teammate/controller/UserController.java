@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import teammate.teammate.ProfileUpdateRequest;
+import teammate.teammate.UserProfileResponse;
 import teammate.teammate.domain.Users;
 import teammate.teammate.service.UserService;
 
@@ -24,9 +25,9 @@ public class UserController {
 
     // 프로필 조회 API
     @GetMapping("/profile/{userId}")
-    public ResponseEntity<Users> getUserProfile(@PathVariable("userId") String userId) {
-        Users user = userService.getUserProfile(userId);
-        return ResponseEntity.ok(user);
+    public ResponseEntity<UserProfileResponse> getUserProfile(@PathVariable("userId") String userId) {
+        UserProfileResponse userProfile = userService.getUserProfileResponse(userId);
+        return ResponseEntity.ok(userProfile);
     }
 
     // 프로필 수정 API
@@ -35,10 +36,15 @@ public class UserController {
             @PathVariable("userId") String userId,
             @RequestPart("user") String userJson,  // JSON을 String으로 받음
             @RequestPart(value = "profileImg", required = false) MultipartFile profileImg
-    ) throws IOException {
+    ) { try {
         // JSON을 객체로 변환 (Jackson 사용)
         ObjectMapper objectMapper = new ObjectMapper();
         ProfileUpdateRequest request = objectMapper.readValue(userJson, ProfileUpdateRequest.class);
+
+        // 닉네임 없으면 예외 처리
+        if (request.getNickname() == null || request.getNickname().trim().isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of("error", "닉네임을 입력해주세요."));
+        }
 
         // 이미지가 정상적으로 들어오는지 확인
         if (profileImg != null && !profileImg.isEmpty()) {
@@ -47,7 +53,7 @@ public class UserController {
             log.warn("프로필 이미지가 포함되지 않음");
         }
 
-        Users updated = userService.updateUserProfile(
+        UserProfileResponse updatedProfile = userService.updateUserProfile(
                 userId,
                 request.getNickname(),
                 request.getIntroduction(),
@@ -61,10 +67,17 @@ public class UserController {
         // 응답 메시지 추가
         Map<String, Object> response = Map.of(
                 "message", "프로필이 성공적으로 수정되었습니다.",
-                "updatedProfile", updated
+                "updatedProfile", updatedProfile
         );
 
         return ResponseEntity.ok(response);
+    } catch (IOException e) {
+        log.error("JSON 변환 오류", e);
+        return ResponseEntity.badRequest().body(Map.of("error", "잘못된 JSON 형식입니다."));
+    } catch (Exception e) {
+        log.error("프로필 수정 중 오류 발생", e);
+        return ResponseEntity.status(500).body(Map.of("error", "서버 오류가 발생했습니다."));
+    }
     }
 
     // 상태 메시지 조회 API
