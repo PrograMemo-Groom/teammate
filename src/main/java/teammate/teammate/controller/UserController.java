@@ -101,12 +101,9 @@ public class UserController {
      * @return 해당 팀코드에 해당하는 팀의 유저들 정보 조회
      */
     @GetMapping("/{teamCode}")
-    public ResponseEntity<List<Users>> getTeamUsers(@PathVariable String teamCode) {
-        List<Users> users = userService.getTeamUsersByTeamCode(teamCode);
+    public ResponseEntity<ApiResponse<List<Users>>> getTeamUsers(@PathVariable String teamCode) {
+        ApiResponse<List<Users>> users = userService.getTeamUsersByTeamCode(teamCode);
 
-        log.info("users {}", users.toString());
-
-        return ResponseEntity.ok(users);
+        return ResponseEntity.status(users.getStatus()).body(users);
     }
-
 }
