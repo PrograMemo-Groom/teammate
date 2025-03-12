@@ -107,12 +107,21 @@
 }
 
 .positionTag {
-  background: #f8f8f8;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 14px;
-  display: inline-block;
+  //background: #f8f8f8;
+  //padding: 5px 10px;
+  //border-radius: 5px;
+  //font-size: 14px;
+  //display: inline-block;
   margin-top: 5px;
+  display: flex;
+  gap: 5px;
+
+  span{
+    background: #f5f5f5;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+  }
 }
 
 .stackTags {

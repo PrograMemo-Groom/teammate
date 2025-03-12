@@ -16,12 +16,19 @@ const UserProfile = () => {
         navigate("/");
     }
 
+    // 포지션, 기술스택의 편집을 위한 state
     const [isStackEditing, setIsStackEditing] = useState(false);
     const [techStacks, setTechStacks] = useState(["JavaScript", "React", "Figma"]);
     const [newTech, setNewTech] = useState("");
+    const [isPositionEditing, setIsPositionEditing] = useState(false);
+    const [position, setPosition] = useState(["FrontEnd"]);
+    const [newPosition, setNewPosition] = useState("");
 
     const handleStackEditClick = () => {
         setIsStackEditing(true);
+    };
+    const handlePositionEditClick = () => {
+        setIsPositionEditing(true);
     };
 
     const handleStackSaveClick = () => {
@@ -29,14 +36,29 @@ const UserProfile = () => {
             alert("입력된 내용이 없습니다");
             return;
         }
-
         setTechStacks((prev) => [...prev, newTech]);
         setNewTech("");
         setIsStackEditing(false);
     };
 
+    const handlePositionSaveClick = () => {
+        if (!newPosition.trim()) {
+            alert("입력된 내용이 없습니다");
+            return;
+        }
+        setPosition((prev) => [...prev, newPosition]);
+        setNewPosition("");
+        setIsPositionEditing(false);
+    };
+
     const handleStackDelete = (index) => {
-        setTechStacks((prev) => prev.filter((_, i) => i !== index)); // ✅ 클릭한 항목만 삭제
+        setTechStacks((prev) =>
+            prev.filter((_, i) => i !== index));
+    };
+
+    const handlePositionDelete = (index) => {
+        setPosition((prev) =>
+            prev.filter((_, i) => i !== index));
     };
 
     return (
@@ -65,8 +87,37 @@ const UserProfile = () => {
 
                     <div className={styles.position}>
                         <p>선호 포지션</p>
-                        <div className={styles.positionTag}>FrontEnd</div>
-
+                        <div className={styles.positionTag}>
+                            {position.map((p, index) => (
+                                <span key={index} className={styles.position}>
+                                    {p}
+                                    <button className={styles.deleteButton}
+                                            onClick={() => handlePositionDelete(index)}>
+                                        X
+                                    </button>
+                                </span>
+                            ))}
+                            {isPositionEditing ? (
+                                <div>
+                                    <input
+                                        type="text"
+                                        className={styles.textInput}
+                                        value={newPosition}
+                                        onChange={(e) => setNewPosition(e.target.value)}
+                                        placeholder="입력해주세요"
+                                    />
+                                    <button className={styles.tagButton}
+                                            onClick={handlePositionSaveClick}>
+                                        저장
+                                    </button>
+                                </div>
+                            ) : (
+                                <button className={styles.tagButton}
+                                        onClick={handlePositionEditClick}>
+                                    추가
+                                </button>
+                            )}
+                        </div>
                     </div>
 
                     <div className={styles.techStack}>
