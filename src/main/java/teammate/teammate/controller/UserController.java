@@ -36,10 +36,15 @@ public class UserController {
             @PathVariable("userId") String userId,
             @RequestPart("user") String userJson,  // JSON을 String으로 받음
             @RequestPart(value = "profileImg", required = false) MultipartFile profileImg
-    ) throws IOException {
+    ) { try {
         // JSON을 객체로 변환 (Jackson 사용)
         ObjectMapper objectMapper = new ObjectMapper();
         ProfileUpdateRequest request = objectMapper.readValue(userJson, ProfileUpdateRequest.class);
+
+        // 닉네임 없으면 예외 처리
+        if (request.getNickname() == null || request.getNickname().trim().isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of("error", "닉네임을 입력해주세요."));
+        }
 
         // 이미지가 정상적으로 들어오는지 확인
         if (profileImg != null && !profileImg.isEmpty()) {
@@ -66,6 +71,13 @@ public class UserController {
         );
 
         return ResponseEntity.ok(response);
+    } catch (IOException e) {
+        log.error("JSON 변환 오류", e);
+        return ResponseEntity.badRequest().body(Map.of("error", "잘못된 JSON 형식입니다."));
+    } catch (Exception e) {
+        log.error("프로필 수정 중 오류 발생", e);
+        return ResponseEntity.status(500).body(Map.of("error", "서버 오류가 발생했습니다."));
+    }
     }
 
     // 상태 메시지 조회 API

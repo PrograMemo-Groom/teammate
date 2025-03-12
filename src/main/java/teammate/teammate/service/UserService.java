@@ -82,8 +82,12 @@ public class UserService {
 
         Users user = findUserById(userId);
 
+        // 닉네임이 없을 경우 예외 발생
+        if (nickname == null || nickname.trim().isEmpty()) {
+            throw new IllegalArgumentException("닉네임을 입력해주세요.");
+        }
         // 기본 정보 업데이트
-        if (nickname != null) user.setNickname(nickname);
+        user.setNickname(nickname);
         if (introduction != null) user.setIntroduction(introduction);
         if (preferredPosition != null) user.setPreferredPosition(preferredPosition);
         if (statusMessage != null) user.setStatusMessage(statusMessage);
