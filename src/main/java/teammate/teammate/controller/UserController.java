@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import teammate.teammate.ProfileUpdateRequest;
+import teammate.teammate.UserProfileResponse;
 import teammate.teammate.domain.Users;
 import teammate.teammate.service.UserService;
 
@@ -24,9 +25,9 @@ public class UserController {
 
     // 프로필 조회 API
     @GetMapping("/profile/{userId}")
-    public ResponseEntity<Users> getUserProfile(@PathVariable("userId") String userId) {
-        Users user = userService.getUserProfile(userId);
-        return ResponseEntity.ok(user);
+    public ResponseEntity<UserProfileResponse> getUserProfile(@PathVariable("userId") String userId) {
+        UserProfileResponse userProfile = userService.getUserProfileResponse(userId);
+        return ResponseEntity.ok(userProfile);
     }
 
     // 프로필 수정 API

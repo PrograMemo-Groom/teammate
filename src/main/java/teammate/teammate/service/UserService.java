@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import teammate.teammate.UserProfileResponse;
 import teammate.teammate.domain.UserLinks;
 import teammate.teammate.domain.UserSkills;
 import teammate.teammate.domain.Users;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,10 +30,43 @@ public class UserService {
     private final UserSkillsRepository userSkillsRepository;
     private final UserLinksRepository userLinksRepository;
 
-    // 프로필 조회
-    public Users getUserProfile(String userId) {
+
+    public Users findUserById(String userId) {
         return userRepository.findByUserId(userId)
                 .orElseThrow(() -> new EntityNotFoundException("사용자 프로필을 찾을 수 없습니다. userId: " + userId));
+    }
+
+    // 프로필 조회
+    public UserProfileResponse getUserProfileResponse(String userId) {
+        Users user = findUserById(userId);
+
+        // 프로필 이미지 인코딩
+        String base64Image = (user.getProfileImg() != null)
+                ? Base64.getEncoder().encodeToString(user.getProfileImg())
+                : null;
+
+        // 사용자 기술 스택 조회
+        List<String> skills = userSkillsRepository.findByUsers(user)
+                .stream()
+                .map(UserSkills::getSkill)
+                .collect(Collectors.toList());
+
+        // 사용자 URL 조회
+        List<String> urls = userLinksRepository.findByUsers(user)
+                .stream()
+                .map(UserLinks::getUrl)
+                .collect(Collectors.toList());
+
+        return new UserProfileResponse(
+                user.getUserId(),
+                user.getNickname(),
+                user.getIntroduction(),
+                user.getPreferredPosition(),
+                user.getStatusMessage(),
+                base64Image,
+                skills,
+                urls
+        );
     }
 
     // 프로필 수정
@@ -45,7 +80,7 @@ public class UserService {
             List<String> urls,
             MultipartFile profileImage) throws IOException {
 
-        Users user = getUserProfile(userId);
+        Users user = findUserById(userId);
 
         // 기본 정보 업데이트
         if (nickname != null) user.setNickname(nickname);
@@ -111,7 +146,7 @@ public class UserService {
 
     // 이미지 업로드
    public String uploadProfileImage(String userId, MultipartFile file) throws IOException {
-        Users user = getUserProfile(userId);
+        Users user = findUserById(userId);
 
         //업로드할 디렉토리 경로 설정
         Path uploadDir = Path.of("uploads/");
