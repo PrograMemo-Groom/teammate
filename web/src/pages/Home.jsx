@@ -24,7 +24,7 @@ const Home = () => {
                 <Users />
                 {/* 선택된 날짜를 변경할 수 있도록 setSelectedDate 전달 */}
                 <TeamCalendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
-                <ScheduleView />
+                <ScheduleView selectedDate={selectedDate} />
             </section>
             <section>
                 {/* 선택된 날짜의 todo 만 표시하도록 전달 */}
