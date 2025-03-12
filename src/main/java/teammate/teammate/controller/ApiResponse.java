@@ -41,7 +41,7 @@ public class ApiResponse<T> {
 
     // 성공적으로 api 통신이 이루어졌지만 응답 데이터는 없을 때
     public static ApiResponse<?> createSuccessWithNoContent(String message) {
-        return new ApiResponse<>(NO_CONTENT_STATUS, message, null);
+        return new ApiResponse<>(SUCCESS_STATUS, message, null);
     }
 
     // 예외 발생으로 API 호출 실패시 반환
