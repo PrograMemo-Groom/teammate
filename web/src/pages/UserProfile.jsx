@@ -16,6 +16,29 @@ const UserProfile = () => {
         navigate("/");
     }
 
+    const [isEditing, setIsEditing] = useState(false);
+    const [techStacks, setTechStacks] = useState(["JavaScript", "React", "Figma"]);
+    const [newTech, setNewTech] = useState("");
+
+    const handleEditClick = () => {
+        setIsEditing(true);
+    };
+
+    const handleSaveClick = () => {
+        if (!newTech.trim()) {
+            alert("입력된 내용이 없습니다");
+            return;
+        }
+
+        setTechStacks((prev) => [...prev, newTech]);
+        setNewTech("");
+        setIsEditing(false);
+    };
+
+    const handleDelete = (index) => {
+        setTechStacks((prev) => prev.filter((_, i) => i !== index)); // ✅ 클릭한 항목만 삭제
+    };
+
     return (
         <div className={styles.container}>
             <h2 className={styles.title}>프로필 설정</h2>
@@ -26,11 +49,11 @@ const UserProfile = () => {
                         {image ? <img src={image} alt="프로필" /> : <div className={styles.placeholder} />}
                     </div>
                     <div className={styles.buttonGroup}>
+                        <button className={styles.imageSelect}>프로필 이미지 설정</button>
                         <label className={styles.uploadButton}>
-                            프로필 이미지 설정
+                            이미지 선택
                             <input type="file" accept="image/*" onChange={handleImageChange} />
                         </label>
-                        <button className={styles.imageSelect}>이미지 선택</button>
                     </div>
                 </div>
 
@@ -43,15 +66,45 @@ const UserProfile = () => {
                     <div className={styles.position}>
                         <p>선호 포지션</p>
                         <div className={styles.positionTag}>FrontEnd</div>
+
                     </div>
 
                     <div className={styles.techStack}>
                         <p>기술 스택</p>
                         <div className={styles.stackTags}>
-                            <span>JavaScript</span>
-                            <span>JavaScript</span>
-                            <span>JavaScript</span>
+                            {/*<span>JavaScript</span>*/}
+                            {/*<span>JavaScript</span>*/}
+                            {/*<span>JavaScript</span>*/}
+                            {techStacks.map((tech, index) => (
+                                <span key={index} className={styles.stackTag}>
+                                    {tech}
+                                    <button className={styles.deleteButton}
+                                            onClick={() => handleDelete(index)}>
+                                        X
+                                    </button>
+                                </span>
+                            ))}
                         </div>
+                        {isEditing ? (
+                            <div>
+                                <input
+                                    type="text"
+                                    className={styles.textInput}
+                                    value={newTech}
+                                    onChange={(e) => setNewTech(e.target.value)}
+                                    placeholder="입력해주세요"
+                                />
+                                <button className={styles.tagButton}
+                                        onClick={handleSaveClick}>
+                                    저장
+                                </button>
+                            </div>
+                        ) : (
+                            <button className={styles.tagButton}
+                                    onClick={handleEditClick}>
+                                추가
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>

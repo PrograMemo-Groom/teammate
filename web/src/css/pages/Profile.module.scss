@@ -78,7 +78,8 @@
   padding: 5px 10px;
   border: none;
   border-radius: 5px;
-  cursor: pointer;
+  cursor: default;
+  margin-bottom: 5px;
 }
 
 .inputSection {
@@ -125,6 +126,28 @@
     border-radius: 5px;
     font-size: 14px;
   }
+}
+
+.deleteButton {
+  background: none;
+  border: none;
+  font-size: 12px;
+  padding: 2px 4px;
+  margin-left: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  line-height: 1;
+}
+
+.tagButton{
+  font-size: 14px;
+  padding: 2px 4px;
+  background: #0082ff;
+  color: white;
+  margin: 5px 3px;
 }
 
 .buttonContainer {
