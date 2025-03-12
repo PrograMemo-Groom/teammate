@@ -70,7 +70,7 @@ public class UserService {
     }
 
     // 프로필 수정
-    public Users updateUserProfile(
+    public UserProfileResponse updateUserProfile(
             String userId,
             String nickname,
             String introduction,
@@ -134,7 +134,8 @@ public class UserService {
             }
         }
 
-        return userRepository.save(user);
+        userRepository.save(user);
+        return getUserProfileResponse(userId);
     }
 
     // 상태 메시지 조회

@@ -48,7 +48,7 @@ public class UserController {
             log.warn("프로필 이미지가 포함되지 않음");
         }
 
-        Users updated = userService.updateUserProfile(
+        UserProfileResponse updatedProfile = userService.updateUserProfile(
                 userId,
                 request.getNickname(),
                 request.getIntroduction(),
@@ -62,7 +62,7 @@ public class UserController {
         // 응답 메시지 추가
         Map<String, Object> response = Map.of(
                 "message", "프로필이 성공적으로 수정되었습니다.",
-                "updatedProfile", updated
+                "updatedProfile", updatedProfile
         );
 
         return ResponseEntity.ok(response);
