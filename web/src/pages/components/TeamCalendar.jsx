@@ -11,7 +11,7 @@ const TeamCalendar = () => {
 
     const handleModalOpen = (value) => {
         setIsOpen(value);
-        console.log("modal open clicked", isOpen);
+        // console.log("modal open clicked", isOpen);
     }
 
     // const eventDates = ["2025-03-12", "2025-03-18", "2025-03-26"];
