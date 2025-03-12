@@ -16,12 +16,22 @@ const TeamCalendar = () => {
 
     const eventDates = ["2025-03-12", "2025-03-18", "2025-03-26"];
 
+    const handleAddEvent = (recordDate) => {
+        if (!recordDate) return;
+
+        // 날짜 형식을 맞춰서 eventDates 상태 업데이트
+        const formattedDate = dayjs(recordDate).format("YYYY-MM-DD");
+        setEventDates((prevDates) => [...new Set([...prevDates, formattedDate])]); // 중복 방지
+        setIsOpen(false);
+    };
+
     return (
         <section>
             <div className={styles.calendarContainer}>
                 <p>{dayjs().format('YYYY년 M월')}</p>
                 <button onClick={() => handleModalOpen(true)}>+일정등록</button>
-                {isOpen && (<Schedule onClose={() => setIsOpen(false)}/>)}
+                {isOpen && (<Schedule onClose={() => setIsOpen(false)}
+                    onRecord={handleAddEvent}/>)}
 
             </div>
 
