@@ -1,7 +1,9 @@
 package teammate.teammate.repository;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import teammate.teammate.domain.CalendarEvents;
@@ -55,8 +57,14 @@ public class CalendarRepository {
     }
 
     @Transactional
-    public void addCalendar(CalendarEvents calendar) {
-        em.persist(calendar); // insert 자동
+    public boolean addCalendar(CalendarEvents calendar) {
+        try {
+            em.persist(calendar); // INSERT 수행
+
+            return true;
+        } catch (PersistenceException e) {
+            return false;
+        }
     }
 
     @Transactional(readOnly = true)
