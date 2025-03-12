@@ -16,15 +16,15 @@ const UserProfile = () => {
         navigate("/");
     }
 
-    const [isEditing, setIsEditing] = useState(false);
+    const [isStackEditing, setIsStackEditing] = useState(false);
     const [techStacks, setTechStacks] = useState(["JavaScript", "React", "Figma"]);
     const [newTech, setNewTech] = useState("");
 
-    const handleEditClick = () => {
-        setIsEditing(true);
+    const handleStackEditClick = () => {
+        setIsStackEditing(true);
     };
 
-    const handleSaveClick = () => {
+    const handleStackSaveClick = () => {
         if (!newTech.trim()) {
             alert("입력된 내용이 없습니다");
             return;
@@ -32,10 +32,10 @@ const UserProfile = () => {
 
         setTechStacks((prev) => [...prev, newTech]);
         setNewTech("");
-        setIsEditing(false);
+        setIsStackEditing(false);
     };
 
-    const handleDelete = (index) => {
+    const handleStackDelete = (index) => {
         setTechStacks((prev) => prev.filter((_, i) => i !== index)); // ✅ 클릭한 항목만 삭제
     };
 
@@ -79,13 +79,13 @@ const UserProfile = () => {
                                 <span key={index} className={styles.stackTag}>
                                     {tech}
                                     <button className={styles.deleteButton}
-                                            onClick={() => handleDelete(index)}>
+                                            onClick={() => handleStackDelete(index)}>
                                         X
                                     </button>
                                 </span>
                             ))}
                         </div>
-                        {isEditing ? (
+                        {isStackEditing ? (
                             <div>
                                 <input
                                     type="text"
@@ -95,13 +95,13 @@ const UserProfile = () => {
                                     placeholder="입력해주세요"
                                 />
                                 <button className={styles.tagButton}
-                                        onClick={handleSaveClick}>
+                                        onClick={handleStackSaveClick}>
                                     저장
                                 </button>
                             </div>
                         ) : (
                             <button className={styles.tagButton}
-                                    onClick={handleEditClick}>
+                                    onClick={handleStackEditClick}>
                                 추가
                             </button>
                         )}
