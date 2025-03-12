@@ -30,7 +30,6 @@ const TeamCalendar = ({ selectedDate, setSelectedDate, role }) => {
 
     const handleModalOpen = (value) => {
         setIsOpen(value);
-        console.log("modal open clicked", isOpen);
     };
 
     // 날짜별 일정 데이터 매핑
@@ -40,6 +39,18 @@ const TeamCalendar = ({ selectedDate, setSelectedDate, role }) => {
         return acc;
     }, {});
 
+    // const eventDates = ["2025-03-12", "2025-03-18", "2025-03-26"];
+//     const [eventDates, setEventDates] = useState(["2025-03-12", "2025-03-18", "2025-03-26"]);
+
+    const handleAddEvent = (recordDate) => {
+        if (!recordDate) return;
+
+        const formattedDate = dayjs(recordDate).format("YYYY-MM-DD");
+
+        setEventDates((prev) => [...new Set([...prev, formattedDate])]); // 중복 방지
+        setIsOpen(false);
+    };
+
     return (
         <section>
             <div className={styles.calendarContainer}>
@@ -47,7 +58,8 @@ const TeamCalendar = ({ selectedDate, setSelectedDate, role }) => {
                 {role === "OWNER" && (
                     <button onClick={() => handleModalOpen(true)}>+일정등록</button>
                 )}
-                {isOpen && <Schedule onClose={() => setIsOpen(false)} />}
+                {isOpen && <Schedule onClose={() => setIsOpen(false)}
+                                     onRecord={handleAddEvent}/>}
             </div>
 
             <LocalizationProvider dateAdapter={AdapterDayjs}>

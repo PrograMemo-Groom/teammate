@@ -81,6 +81,26 @@
     resize: none;
   }
 }
+
+.formGroup {
+  display: flex;
+  gap: 10px;
+
+  input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+
+  select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+}
+
 .buttonGroup {
   display: flex;
   justify-content: flex-end;

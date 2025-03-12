@@ -53,6 +53,23 @@
     p {
       margin-top: 5px;
     }
+
+    .statusMessage{
+      position: absolute;
+      background: rgba(0, 0, 0, 0.15);
+      border-radius: 50px;
+      padding: 5px 10px;
+      top: 140px;
+      visibility: hidden;
+    }
+
+    &:hover {
+      cursor: pointer;
+      .statusMessage {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
   }
 
   .nextUser {
