@@ -22,6 +22,8 @@ const Schedule = ({onClose , onRecord}) => {
         onClose();
     };
 
+    // date랑 hour, minute 묶기
+
     return (<dialog className={styles.modalOverlay}>
         <div className={styles.modalContent}>
             <div className={styles.closeButton}>
