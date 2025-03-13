@@ -26,9 +26,10 @@ public class TodosController {
      * @return UserId로 그룹핑된 Todos 데이터 조회
      */
     @GetMapping("/{teamCode}/{year}/{month}/{day}")
-    public ResponseEntity<Map<String, List<Todos>>> getTodos(@PathVariable String teamCode, @PathVariable int year, @PathVariable int month, @PathVariable int day) {
-        Map<String, List<Todos>> groupedTodos = todosService.getTodos(teamCode, year, month, day);
-        return ResponseEntity.ok(groupedTodos);
+    public ResponseEntity<ApiResponse<Map<String, List<Todos>>>> getTodos(@PathVariable String teamCode, @PathVariable int year, @PathVariable int month, @PathVariable int day) {
+        ApiResponse<Map<String, List<Todos>>> groupedTodos = todosService.getTodos(teamCode, year, month, day);
+
+        return ResponseEntity.status(groupedTodos.getStatus()).body(groupedTodos);
     }
 
 

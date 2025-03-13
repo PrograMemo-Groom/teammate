@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import teammate.teammate.domain.Todos;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,7 +22,16 @@ public class TodosRepository {
     public Map<String, List<Todos>> getTodos(String teamCode, int year, int month, int day) {
         String sql = "SELECT t FROM Todos t WHERE t.teamCode = :teamCode " + "AND YEAR(t.createTime) = :year " + "AND MONTH(t.createTime) = :month " + "AND DAY(t.createTime) = :day " + "ORDER BY t.createTime";
 
-        List<Todos> resultList = em.createQuery(sql, Todos.class).setParameter("teamCode", teamCode).setParameter("year", year).setParameter("month", month).setParameter("day", day).getResultList();
+        List<Todos> resultList = em.createQuery(sql, Todos.class)
+                .setParameter("teamCode", teamCode)
+                .setParameter("year", year)
+                .setParameter("month", month)
+                .setParameter("day", day)
+                .getResultList();
+
+        if (resultList.isEmpty()) {
+            return new HashMap<>(); // Map<String, data> [] 빈 배열 형태
+        }
 
         // userId를 기준으로 그룹화
         return resultList.stream().collect(Collectors.groupingBy(t -> t.getUserId()));
