@@ -1,6 +1,5 @@
 package teammate.teammate.repository;
 
-
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,4 +23,7 @@ public interface UserRepository extends JpaRepository<Users, Integer> {
 //        return resultList.get(0);
 //    }
 
+    Optional<Users> findByEmail(String email);
+    boolean existsByUserId(String userId);
+    boolean existsByEmail(String email);
 }
