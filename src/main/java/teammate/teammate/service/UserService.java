@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import teammate.teammate.UserProfileResponse;
+import teammate.teammate.dto.UserProfileResponse;
 import teammate.teammate.domain.UserLinks;
 import teammate.teammate.domain.UserSkills;
 import teammate.teammate.domain.Users;

@@ -6,8 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import teammate.teammate.ProfileUpdateRequest;
-import teammate.teammate.UserProfileResponse;
+import teammate.teammate.dto.ProfileUpdateRequest;
+import teammate.teammate.dto.UserProfileResponse;
 import teammate.teammate.domain.Users;
 import teammate.teammate.service.UserService;
 
