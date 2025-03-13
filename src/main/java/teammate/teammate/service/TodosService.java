@@ -29,7 +29,7 @@ public class TodosService {
         todosRepository.updateTodo(todoId, updateTodo);
     }
 
-    public Boolean addTodo(Todos addTodo) {
+    public void addTodo(Todos addTodo) {
         todosRepository.addTodo(addTodo);
     }
 

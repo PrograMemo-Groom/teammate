@@ -57,7 +57,6 @@ public class TodosRepository {
         addTodo.setCreateTime(LocalDateTime.now());
         addTodo.setUpdateTime(LocalDateTime.now());
         em.persist(addTodo); // Insert 쿼리
-//        return addTodo;
     }
 
     @Transactional

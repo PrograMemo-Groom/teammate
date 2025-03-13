@@ -53,7 +53,7 @@ public class TodosController {
     public ResponseEntity<ApiResponse> addTodo(@RequestBody Todos addTodo) {
         todosService.addTodo(addTodo);
 
-        return ResponseEntity.ok("Todo successfully added.");
+        return ResponseEntity.ok(new ApiResponse(200, "Todo 추가 성공"));
     }
 
     @DeleteMapping("/{todoId}")
