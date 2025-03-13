@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-//@RequestMapping("/api")
 @RequestMapping("/users")
 @Slf4j
 @RequiredArgsConstructor
@@ -64,18 +63,26 @@ public class UserController {
         }
     }
 
-//
-//    @GetMapping("/data")
-//    public String data(){
-//        return "연결 테스트";
-//    }
-//
-//    @GetMapping("/getuser")
-//    public String getUser() {
-//        Users users = userService.getUserByUsername(1);
-//
-//        return users.getUserId();
-//    }
+    @PostMapping("/signup")
+    public ResponseEntity<?> registerUser(@RequestBody Users user, @RequestParam String teamCode) {
+        if (user.getUserId() == null || user.getPassword() == null || user.getEmail() == null) {
+            return ResponseEntity.badRequest().body(Map.of("error", "필수 입력값이 누락되었습니다."));
+        }
 
-
+        try {
+            userService.registerUser(user, teamCode);
+            return ResponseEntity.ok("회원가입이 완료되었습니다.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
+    }
+//    @PostMapping("/signup")
+//    public ResponseEntity<String> registerUser(@RequestBody Users user, @RequestParam String teamCode) {
+//        try {
+//            userService.registerUser(user, teamCode);
+//            return ResponseEntity.ok("회원가입이 완료되었습니다.");
+//        } catch (RuntimeException e) {
+//            return ResponseEntity.badRequest().body(e.getMessage());
+//        }
+//    }
 }
