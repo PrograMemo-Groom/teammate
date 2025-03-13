@@ -15,6 +15,17 @@ public class TodosService {
     private final TodosRepository todosRepository;
 
     public ApiResponse<Map<String, List<Todos>>> getTodos(String teamCode, int year, int month, int day) {
+        // 필수 값 검증
+        if (teamCode == null || teamCode.isBlank()) {
+            throw new IllegalArgumentException("팀 코드는 필수입니다.");
+        }
+        if (month < 1 || month > 12) {
+            throw new IllegalArgumentException("월(month)은 1~12 사이여야 합니다.");
+        }
+        if (day < 1 || day > 31) {
+            throw new IllegalArgumentException("일(day)는 1~31 사이여야 합니다.");
+        }
+
         Map<String, List<Todos>> todos = todosRepository.getTodos(teamCode, year, month, day);
 
         if (todos.isEmpty()) {
