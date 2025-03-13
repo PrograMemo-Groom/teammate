@@ -2,6 +2,7 @@ package teammate.teammate.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -57,15 +58,16 @@ public class TodosController {
     }
 
     @DeleteMapping("/{todoId}")
-    public ResponseEntity<String> deleteTodo(@PathVariable int todoId) {
+    public ResponseEntity<ApiResponse> deleteTodo(@PathVariable int todoId) {
         boolean isDeleted = todosService.deleteTodo(todoId);
 
         if (isDeleted) {
-            log.info("Todo deleted successfully. Deleted todoId = {}", todoId); // 성공 로그
-            return ResponseEntity.ok("Todo deleted successfully. Deleted todoId = " + todoId);
+            return ResponseEntity.status(200).body(new ApiResponse(200, "삭제 성공"));
         } else {
             log.warn("Todo not found. Failed to delete todoId = {}", todoId); // 실패 로그
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Todo not found.");
+
+            String message = String.format("Todo not found. Failed to delete todoId = %d", todoId);
+            return ResponseEntity.status(404).body(new ApiResponse(404, message));
         }
     }
 }
