@@ -32,7 +32,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	implementation 'org.mariadb.jdbc:mariadb-java-client:3.2.0'
-
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 
 	// env 파일 관리를 위한 dotenv 라이브러리 추가
 	implementation("io.github.cdimascio:java-dotenv:5.2.2")}
