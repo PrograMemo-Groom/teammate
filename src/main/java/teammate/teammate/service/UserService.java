@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import teammate.teammate.UserProfileResponse;
-import teammate.teammate.controller.ApiResponse;
 import teammate.teammate.domain.UserLinks;
 import teammate.teammate.domain.UserSkills;
 import teammate.teammate.domain.Users;
@@ -178,19 +177,9 @@ public class UserService {
         return "uploads/" + fileName;
     }
 
-    public ApiResponse<List<Users>> getTeamUsersByTeamCode(String teamCode){
-        if (teamCode == null || teamCode.isEmpty()) {
-            throw new IllegalArgumentException("팀 코드는 필수입니다.");
-        }
+    public List<Users> getTeamUsersByTeamCode(String teamCode){
 
-        List<Users> users = userRepository.getTeamUsersByTeamCode(teamCode);
-
-        if (users.size() == 0) { // Data 가 [] 일 때
-            String message = String.format("%s : 조회된 데이터가 없습니다.", teamCode);
-            return new ApiResponse<>(200, message, null);
-        }
-
-        return new ApiResponse<>(200, "조회 성공", users);
+        return userRepository.getTeamUsersByTeamCode(teamCode);
     }
 
 
