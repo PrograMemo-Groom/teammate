@@ -42,7 +42,7 @@ public class TodosController {
     public ResponseEntity<ApiResponse> updateTodo(@PathVariable int todoId, @RequestBody Todos updateTodo) {
         todosService.updateTodo(todoId, updateTodo);
 
-        return ResponseEntity.status(200).body(new ApiResponse(200, "업데이트 성공"));
+        return ResponseEntity.ok(new ApiResponse(200, "업데이트 성공"));
     }
 
     /**
@@ -50,7 +50,7 @@ public class TodosController {
      * @return RequestBody로 받은 team_code, user_id에 대해 Todo 추가
      */
     @PostMapping
-    public ResponseEntity<String> addTodo(@RequestBody Todos addTodo) {
+    public ResponseEntity<ApiResponse> addTodo(@RequestBody Todos addTodo) {
         todosService.addTodo(addTodo);
 
         return ResponseEntity.ok("Todo successfully added.");

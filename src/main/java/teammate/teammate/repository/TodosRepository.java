@@ -39,7 +39,7 @@ public class TodosRepository {
     }
 
     @Transactional // 데이터 변경이 일어나므로 트랜잭션 적용
-    public Todos updateTodo(int todoId, Todos updateTodo) {
+    public void updateTodo(int todoId, Todos updateTodo) {
             String sql = "SELECT t FROM Todos t WHERE t.id = :todoId";
 
             Todos existingTodo = em.createQuery(sql, Todos.class)
@@ -49,8 +49,6 @@ public class TodosRepository {
             // Todo 업데이트 로직
             existingTodo.setTask(updateTodo.getTask());
             existingTodo.setCompleted(updateTodo.getCompleted());
-
-            return existingTodo;
     }
 
     @Transactional
