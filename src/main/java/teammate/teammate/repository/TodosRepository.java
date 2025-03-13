@@ -1,12 +1,14 @@
 package teammate.teammate.repository;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import teammate.teammate.domain.Todos;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,23 +23,32 @@ public class TodosRepository {
     public Map<String, List<Todos>> getTodos(String teamCode, int year, int month, int day) {
         String sql = "SELECT t FROM Todos t WHERE t.teamCode = :teamCode " + "AND YEAR(t.createTime) = :year " + "AND MONTH(t.createTime) = :month " + "AND DAY(t.createTime) = :day " + "ORDER BY t.createTime";
 
-        List<Todos> resultList = em.createQuery(sql, Todos.class).setParameter("teamCode", teamCode).setParameter("year", year).setParameter("month", month).setParameter("day", day).getResultList();
+        List<Todos> resultList = em.createQuery(sql, Todos.class)
+                .setParameter("teamCode", teamCode)
+                .setParameter("year", year)
+                .setParameter("month", month)
+                .setParameter("day", day)
+                .getResultList();
+
+        if (resultList.isEmpty()) {
+            return new HashMap<>(); // Map<String, data> [] 빈 배열 형태
+        }
 
         // userId를 기준으로 그룹화
         return resultList.stream().collect(Collectors.groupingBy(t -> t.getUserId()));
     }
 
     @Transactional // 데이터 변경이 일어나므로 트랜잭션 적용
-    public Todos updateTodo(int todoId, Todos updateTodo) {
-        String sql = "SELECT t FROM Todos t WHERE t.id = :todoId";
+    public void updateTodo(int todoId, Todos updateTodo) {
+            String sql = "SELECT t FROM Todos t WHERE t.id = :todoId";
 
-        Todos existingTodo = em.createQuery(sql, Todos.class).setParameter("todoId", todoId).getSingleResult();
+            Todos existingTodo = em.createQuery(sql, Todos.class)
+                    .setParameter("todoId", todoId)
+                    .getSingleResult();
 
-        // Todo 업데이트 로직
-        existingTodo.setTask(updateTodo.getTask());
-        existingTodo.setCompleted(updateTodo.getCompleted());
-
-        return existingTodo;
+            // Todo 업데이트 로직
+            existingTodo.setTask(updateTodo.getTask());
+            existingTodo.setCompleted(updateTodo.getCompleted());
     }
 
     @Transactional
@@ -46,7 +57,6 @@ public class TodosRepository {
         addTodo.setCreateTime(LocalDateTime.now());
         addTodo.setUpdateTime(LocalDateTime.now());
         em.persist(addTodo); // Insert 쿼리
-//        return addTodo;
     }
 
     @Transactional

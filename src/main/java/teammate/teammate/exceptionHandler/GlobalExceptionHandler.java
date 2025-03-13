@@ -18,7 +18,7 @@ public class GlobalExceptionHandler {
     // 기타 예외 처리
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<?>> handleGeneralException(Exception ex) {
-        ApiResponse<?> response = ApiResponse.createError("알 수 없는 오류 : " + ex.getMessage());
+        ApiResponse<?> response = ApiResponse.createError("알 수 없는 오류 요청 URL을 다시 확인해보십시오: " + ex.getMessage());
         log.error(ex.getMessage(), ex);
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
