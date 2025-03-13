@@ -39,9 +39,10 @@ public class TodosController {
      * @return 해당 todoId에 대해서 입력받은 todoData 값으로 업데이트
      */
     @PostMapping("/{todoId}")
-    public ResponseEntity<Todos> updateTodo(@PathVariable int todoId, @RequestBody Todos updateTodo) {
-        Todos updatedTodo = todosService.updateTodo(todoId, updateTodo);
-        return ResponseEntity.ok(updatedTodo);
+    public ResponseEntity<ApiResponse> updateTodo(@PathVariable int todoId, @RequestBody Todos updateTodo) {
+        todosService.updateTodo(todoId, updateTodo);
+
+        return ResponseEntity.status(200).body(new ApiResponse(200, "업데이트 성공"));
     }
 
     /**

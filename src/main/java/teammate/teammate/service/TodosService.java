@@ -25,8 +25,10 @@ public class TodosService {
         return new ApiResponse<>(200, message, todos);
     }
 
-    public Todos updateTodo(int todoId, Todos updateTodo) {
-        return todosRepository.updateTodo(todoId, updateTodo);
+    public Boolean updateTodo(int todoId, Todos updateTodo) {
+        todosRepository.updateTodo(todoId, updateTodo);
+
+        return true;
     }
 
     public void addTodo(Todos addTodo) {

@@ -1,6 +1,7 @@
 package teammate.teammate.repository;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,15 +40,17 @@ public class TodosRepository {
 
     @Transactional // 데이터 변경이 일어나므로 트랜잭션 적용
     public Todos updateTodo(int todoId, Todos updateTodo) {
-        String sql = "SELECT t FROM Todos t WHERE t.id = :todoId";
+            String sql = "SELECT t FROM Todos t WHERE t.id = :todoId";
 
-        Todos existingTodo = em.createQuery(sql, Todos.class).setParameter("todoId", todoId).getSingleResult();
+            Todos existingTodo = em.createQuery(sql, Todos.class)
+                    .setParameter("todoId", todoId)
+                    .getSingleResult();
 
-        // Todo 업데이트 로직
-        existingTodo.setTask(updateTodo.getTask());
-        existingTodo.setCompleted(updateTodo.getCompleted());
+            // Todo 업데이트 로직
+            existingTodo.setTask(updateTodo.getTask());
+            existingTodo.setCompleted(updateTodo.getCompleted());
 
-        return existingTodo;
+            return existingTodo;
     }
 
     @Transactional
