@@ -2,6 +2,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
+  background-color: #ffffff;
 }
 
 .signup-box {
@@ -51,6 +53,10 @@
     }
   }
 
+  .form-group-teamcode {
+
+  }
+
   .error {
     color: red;
     font-size: 0.875rem;
@@ -72,4 +78,27 @@
       background-color: #0056b3;
     }
   }
+}
+
+.team-code-container {
+  display: flex;
+  gap: 10px;
+
+  //input {
+  //  flex: 1;
+  //}
+}
+
+.team-generate-button, .team-input-button {
+  padding: 5px 10px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.team-generate-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
