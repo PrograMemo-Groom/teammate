@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import teammate.teammate.dto.UserProfileResponse;
+import teammate.teammate.UserProfileResponse;
 import teammate.teammate.domain.UserLinks;
 import teammate.teammate.domain.UserSkills;
 import teammate.teammate.domain.Users;
@@ -86,7 +86,6 @@ public class UserService {
         if (nickname == null || nickname.trim().isEmpty()) {
             throw new IllegalArgumentException("닉네임을 입력해주세요.");
         }
-
         // 기본 정보 업데이트
         user.setNickname(nickname);
         if (introduction != null) user.setIntroduction(introduction);
@@ -151,23 +150,27 @@ public class UserService {
     }
 
     // 이미지 업로드
-    public String uploadProfileImage(String userId, MultipartFile file) throws IOException {
-        if (file.isEmpty()) {
-            throw new IllegalArgumentException("파일이 없습니다.");
-        }
-
+   public String uploadProfileImage(String userId, MultipartFile file) throws IOException {
         Users user = findUserById(userId);
-        Path uploadDir = Path.of(UPLOAD_DIR);
 
+        //업로드할 디렉토리 경로 설정
+        Path uploadDir = Path.of("uploads/");
+
+        //디렉토리가 존재하지 않으면 생성
         if (!Files.exists(uploadDir)) {
             log.warn("'uploads/' 디렉토리가 없어서 생성합니다.");
             Files.createDirectories(uploadDir);
         }
 
+        //저장할 파일 경로 설정
         String fileName = userId + "_" + file.getOriginalFilename();
         Path filePath = uploadDir.resolve(fileName);
 
+        //파일 저장
+        log.info("저장 경로: {}", filePath);
         Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+        //데이터베이스에 이미지 저장 (BLOB)
         user.setProfileImg(Files.readAllBytes(filePath));
         userRepository.save(user);
 
