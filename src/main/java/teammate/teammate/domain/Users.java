@@ -44,4 +44,9 @@ public class Users {
     @Lob // BLOB 타입을 사용하기 위해 @Lob 어노테이션 추가
     @Column(name = "profile_img", columnDefinition = "BLOB")
     private byte[] profileImg; // BLOB 데이터로 이미지를 저장
+
+    // teams과의 관계 (Many-to-One)
+    @ManyToOne
+    @JoinColumn(name = "team_code", referencedColumnName = "team_code")
+    private Teams team;
 }
