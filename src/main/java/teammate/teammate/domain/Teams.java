@@ -41,7 +41,4 @@ public class Teams {
 
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT true")
     private Boolean is_active;
-
-//    @OneToMany(mappedBy = "teams", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Todos> todosList;
 }
